@@ -192,13 +192,8 @@
           "type": "dropdown",
           "required": false,
           "title": "Model Name",
-          "default": "eleven_monolingual_v1",
-          "data": [
-            {
-              "title": "eleven_monolingual_v1",
-              "value": "eleven_monolingual_v1"
-            }
-          ]
+          "default": "eleven_multilingual_v2",
+          "dataProxy": "tts_providers|elevenlabs_models"
         },
         {
           "name": "voice",
@@ -215,6 +210,35 @@
       "name": "elevenlabs_voices",
       "title": "elevenlabs_voices",
       "description": "get elevenlabs_voices list",
+      "icon": "icon.png",
+      "showInCommandList": false,
+      "mode": "no-view",
+      "preferences": [
+        {
+          "name": "api_key",
+          "description": "Api Key",
+          "type": "password",
+          "required": false,
+          "title": "Api Key",
+          "default": "",
+          "defaultProxy": "tts_providers|elevenlabs_tts_provider",
+          "placeholder": "ElevenLabs Api Key"
+        },
+        {
+          "name": "baseUrl",
+          "description": "ElevenLabs api base url",
+          "type": "textfield",
+          "required": false,
+          "title": "ElevenLabs Api Base Url",
+          "default": "https://api.elevenlabs.io/v1",
+          "placeholder": "ElevenLabs Api Base Url"
+        }
+      ]
+    },
+    {
+      "name": "elevenlabs_models",
+      "title": "elevenlabs_models",
+      "description": "get elevenlabs_models list",
       "icon": "icon.png",
       "showInCommandList": false,
       "mode": "no-view",
