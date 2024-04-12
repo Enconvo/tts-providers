@@ -18,7 +18,25 @@
       "description": "Edge TTS Provider that allows you to use Microsoft Edge's online text-to-speech service",
       "icon": "edge_tts.jpg",
       "mode": "llm",
-      "preferences": []
+      "preferences": [
+        {
+          "name": "voice",
+          "title": "Speech Voice",
+          "description": "The voice to TTS.",
+          "type": "dropdown",
+          "required": false,
+          "dataProxy": "tts_providers|edge_voices",
+          "default": "en-US-AvaMultilingualNeural"
+        }
+      ]
+    },
+    {
+      "name": "edge_voices",
+      "title": "edge_voices",
+      "description": "get edge_voices list",
+      "icon": "icon.png",
+      "showInCommandList": false,
+      "mode": "no-view"
     },
     {
       "name": "mirosoft_tts_provider",

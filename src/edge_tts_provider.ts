@@ -12,7 +12,9 @@ export class EdgeTTSProvider extends TTSProviderBase {
 
     protected async _speak({ text, audioFilePath }: { text: string; audioFilePath: string }): Promise<TTSItem> {
 
-        const tts = new EdgeTTS()
+        const tts = new EdgeTTS({
+            voice: this.ttsOptions.voice
+        })
         await tts.ttsPromise(text, audioFilePath)
         return {
             path: audioFilePath,

@@ -8051,7 +8051,7 @@ async function fetch_model() {
     try {
         models = voices.map((item) => {
             return {
-                "title": `${item.LocalName} - ${item.Gender} - ${item.LocalName}`,
+                "title": `${item.LocalName} - ${item.Gender} - ${item.LocaleName}`,
                 "value": `${item.ShortName}`
             }
         })
