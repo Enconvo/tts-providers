@@ -52,7 +52,7 @@
           "type": "dropdown",
           "required": false,
           "dataProxy": "tts_providers|azure_voices",
-          "default": "en-US-AvaMultilingualNeural"
+          "default": "en-US-JennyMultilingualNeural"
         },
         {
           "name": "region",

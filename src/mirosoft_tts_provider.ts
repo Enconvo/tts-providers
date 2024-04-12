@@ -11,11 +11,7 @@ export class MicrosoftTTSProvider extends TTSProviderBase {
 
     protected async _speak({ text, audioFilePath }: { text: string; audioFilePath: string }): Promise<TTSItem> {
 
-        console.log("start")
         await this.ttsSpeak(text, audioFilePath)
-        // const tts = new EdgeTTS()
-        // await tts.ttsPromise(text, audioFilePath)
-        console.log("end")
         return {
             path: audioFilePath,
             text: text
@@ -40,7 +36,6 @@ export class MicrosoftTTSProvider extends TTSProviderBase {
             synthesizer.speakTextAsync(text,
                 function (result: any) {
                     if (result.reason === ResultReason.SynthesizingAudioCompleted) {
-                        console.log("synthesis finished.");
                         synthesizer.close();
                         synthesizer = null;
                         resolve(null)
