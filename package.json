@@ -26,7 +26,7 @@
           "type": "dropdown",
           "required": false,
           "dataProxy": "tts_providers|edge_voices",
-          "default": "en-US-AvaMultilingualNeural"
+          "default": "en-US-BrianMultilingualNeural"
         }
       ]
     },
