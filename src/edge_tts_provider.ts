@@ -1,6 +1,5 @@
-import { EdgeTTS } from "node-edge-tts";
 import { TTSItem, TTSOptions, TTSProviderBase } from "./tts_provider.ts";
-
+import { MsEdgeTTS, OUTPUT_FORMAT } from "msedge-tts";
 export default function main(ttsOptions: TTSOptions) {
 
     console.log("init")
@@ -12,13 +11,21 @@ export class EdgeTTSProvider extends TTSProviderBase {
 
     protected async _speak({ text, audioFilePath }: { text: string; audioFilePath: string }): Promise<TTSItem> {
 
-        const tts = new EdgeTTS({
-            voice: this.ttsOptions.voice
-        })
-        await tts.ttsPromise(text, audioFilePath)
-        return {
-            path: audioFilePath,
-            text: text
+        try {
+
+            const tts = new MsEdgeTTS();
+            await tts.setMetadata(this.ttsOptions.voice, OUTPUT_FORMAT.AUDIO_24KHZ_48KBITRATE_MONO_MP3);
+            await tts.toFile(audioFilePath, text);
+
+            return {
+                path: audioFilePath,
+                text: text
+            }
+        } catch (error) {
+            return {
+                path: "",
+                text: text
+            }
         }
     }
 }
