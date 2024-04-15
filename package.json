@@ -13,6 +13,23 @@
   "type": "module",
   "commands": [
     {
+      "name": "system_tts_provider",
+      "title": "System TTS",
+      "description": "System TTS Provider that allows you to use Microsoft Edge's online text-to-speech service",
+      "icon": "edge_tts.jpg",
+      "mode": "llm",
+      "preferences": [
+        {
+          "name": "format",
+          "title": "Speech Voice",
+          "description": "The voice to TTS.",
+          "type": "hidden",
+          "required": false,
+          "default": "m4a"
+        }
+      ]
+    },
+    {
       "name": "edge_tts_provider",
       "title": "Edge TTS",
       "description": "Edge TTS Provider that allows you to use Microsoft Edge's online text-to-speech service",

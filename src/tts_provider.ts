@@ -10,6 +10,7 @@ export interface TTSItem {
 
 export type TTSOptions = {
     voice: string;
+    format?: string;
     [key: string]: any;
 };
 
@@ -37,7 +38,7 @@ export abstract class TTSProviderBase {
             fs.mkdirSync(outputDir, { recursive: true });
         }
 
-        const audioFilePath = path.join(outputDir, `${textMD5}.mp3`);
+        const audioFilePath = path.join(outputDir, `${textMD5}.${this.ttsOptions.format || "mp3"}`);
 
         if (fs.existsSync(audioFilePath)) {
             // get absolute path
