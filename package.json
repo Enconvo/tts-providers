@@ -42,6 +42,12 @@
           "description": "The voice to TTS.",
           "type": "dropdown",
           "required": false,
+          "data": [
+            {
+              "value": "en-US-BrianMultilingualNeural",
+              "title": "BrianMultilingual Online (Natural) - English (United States)"
+            }
+          ],
           "dataProxy": "tts_providers|edge_voices",
           "default": "en-US-BrianMultilingualNeural"
         }
@@ -68,8 +74,14 @@
           "description": "The voice to TTS.",
           "type": "dropdown",
           "required": false,
+          "data": [
+            {
+              "value": "en-US-BrianMultilingualNeural",
+              "title": "Brian Multilingual - Male - English (United States)"
+            }
+          ],
           "dataProxy": "tts_providers|azure_voices",
-          "default": "en-US-JennyMultilingualNeural"
+          "default": "en-US-BrianMultilingualNeural"
         },
         {
           "name": "region",
@@ -210,6 +222,12 @@
           "required": false,
           "title": "Model Name",
           "default": "eleven_multilingual_v2",
+          "data": [
+            {
+              "title": "Eleven Multilingual v2",
+              "value": "eleven_multilingual_v2"
+            }
+          ],
           "dataProxy": "tts_providers|elevenlabs_models"
         },
         {
@@ -219,6 +237,12 @@
           "required": false,
           "title": "Voice",
           "default": "21m00Tcm4TlvDq8ikWAM",
+          "data": [
+            {
+              "title" : "Rachel - female - american - calm- young- narration",
+              "value" : "21m00Tcm4TlvDq8ikWAM"
+            }
+          ],
           "dataProxy": "tts_providers|elevenlabs_voices"
         }
       ]

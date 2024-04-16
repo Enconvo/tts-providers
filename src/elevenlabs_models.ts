@@ -15,7 +15,7 @@ async function fetch_model(apiKey: string) {
         let json = await resp.json()
         return json.map((model: any) => {
             return {
-                title: `${model['name']}}`,
+                title: `${model['name']}`,
                 value: model['model_id']
             }
         })
