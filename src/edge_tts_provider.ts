@@ -14,7 +14,7 @@ export class EdgeTTSProvider extends TTSProviderBase {
         try {
 
             const tts = new MsEdgeTTS();
-            await tts.setMetadata(this.ttsOptions.voice, OUTPUT_FORMAT.AUDIO_24KHZ_48KBITRATE_MONO_MP3);
+            await tts.setMetadata(this.ttsOptions.voice.value, OUTPUT_FORMAT.AUDIO_24KHZ_48KBITRATE_MONO_MP3);
             await tts.toFile(audioFilePath, text);
 
             return {

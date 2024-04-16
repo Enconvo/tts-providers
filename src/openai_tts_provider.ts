@@ -19,9 +19,9 @@ export class OpenAITTSProvider extends TTSProviderBase {
         const OPENAI_API_KEY = options.openAIApiKey; // Replace with your actual API key
 
         const data = {
-            model: options.modelName,
+            model: options.modelName.value,
             input: text,
-            voice: options.voice
+            voice: options.voice.value
         };
 
         const ttsUrl = `${options.baseUrl}/audio/speech`

@@ -30,9 +30,10 @@ export abstract class TTSProviderBase {
 
         const commandName = this.ttsOptions.commandName || this.ttsOptions.originCommandName
         const extensionName = "tts"
+        console.log("this.ttsOptions",this.ttsOptions)
 
         const cachePath = fs.existsSync(path.join(homedir(), `Library/Caches/com.frostyeve.enconvo/cache/${extensionName}/${commandName}/`)) ? path.join(homedir(), `Library/Caches/com.frostyeve.enconvo/cache/${extensionName}/${commandName}/`) : (fs.mkdirSync(path.join(homedir(), `Library/Caches/com.frostyeve.enconvo/cache/${extensionName}/${commandName}/`), { recursive: true }) ? path.join(homedir(), `Library/Caches/com.frostyeve.enconvo/cache/${extensionName}/${commandName}/`) : "")
-        let outputDir = `${cachePath}/tts/${commandName}/${this.ttsOptions.voice}_${this.ttsOptions.modelName ? this.ttsOptions.modelName : "default"}_${this.ttsOptions.style ? this.ttsOptions.style : "default"}/`
+        let outputDir = `${cachePath}/tts/${commandName}/${this.ttsOptions?.voice?.value}_${this.ttsOptions?.modelName?.value ? this.ttsOptions?.modelName?.value : "default"}_${this.ttsOptions?.style?.value ? this.ttsOptions?.style?.value : "default"}/`
 
         if (!fs.existsSync(outputDir)) {
             fs.mkdirSync(outputDir, { recursive: true });

@@ -28,7 +28,7 @@ export class MicrosoftTTSProvider extends TTSProviderBase {
             speechConfig.speechSynthesisOutputFormat = SpeechSynthesisOutputFormat.Audio16Khz32KBitRateMonoMp3
 
             // The language of the voice that speaks.
-            speechConfig.speechSynthesisVoiceName = this.ttsOptions.voice;
+            speechConfig.speechSynthesisVoiceName = this.ttsOptions.voice.value;
 
             // Create the speech synthesizer.
             var synthesizer = new SpeechSynthesizer(speechConfig, audioConfig);

@@ -18,14 +18,14 @@ export class EventLabsTTSProvider extends TTSProviderBase {
 
         const data = {
             "text": text,
-            "model_id": options.modelName,
+            "model_id": options.modelName.value,
             "voice_settings": {
                 "stability": 0.5,
                 "similarity_boost": 0.5
             }
         }
 
-        const ttsUrl = `${options.baseUrl}/text-to-speech/${options.voice}`
+        const ttsUrl = `${options.baseUrl}/text-to-speech/${options.voice.value}`
 
         const response = await axios.post(ttsUrl, data, {
             headers: {
