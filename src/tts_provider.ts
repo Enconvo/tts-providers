@@ -30,7 +30,6 @@ export abstract class TTSProviderBase {
 
         const commandName = this.ttsOptions.commandName || this.ttsOptions.originCommandName
         const extensionName = "tts"
-        console.log("this.ttsOptions",this.ttsOptions)
 
         const cachePath = fs.existsSync(path.join(homedir(), `Library/Caches/com.frostyeve.enconvo/cache/${extensionName}/${commandName}/`)) ? path.join(homedir(), `Library/Caches/com.frostyeve.enconvo/cache/${extensionName}/${commandName}/`) : (fs.mkdirSync(path.join(homedir(), `Library/Caches/com.frostyeve.enconvo/cache/${extensionName}/${commandName}/`), { recursive: true }) ? path.join(homedir(), `Library/Caches/com.frostyeve.enconvo/cache/${extensionName}/${commandName}/`) : "")
         let outputDir = `${cachePath}/tts/${commandName}/${this.ttsOptions?.voice?.value}_${this.ttsOptions?.modelName?.value ? this.ttsOptions?.modelName?.value : "default"}_${this.ttsOptions?.style?.value ? this.ttsOptions?.style?.value : "default"}/`
@@ -55,6 +54,7 @@ export abstract class TTSProviderBase {
                 return result;
             } catch (error) {
                 console.log("error", error)
+                await new Promise(resolve => setTimeout(resolve, 1000));
                 if (retry < 3) {
                     return await executeSpeak(provider, text, audioFilePath, retry + 1)
                 }
