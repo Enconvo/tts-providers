@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@enconvo/api':
-    specifier: ^0.1.105
-    version: 0.1.105
+    specifier: ^0.1.123
+    version: 0.1.123
   axios:
     specifier: ^1.4.0
     version: 1.6.8
@@ -45,8 +45,8 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /@enconvo/api@0.1.105:
-    resolution: {integrity: sha512-RIy3/zM/rZZuZr9Z3c882iiBojz2cppVAq5pd/sGYyCIMc0+d2Lp38YUuWeUYKoiGqwNkQxnfKx1lRLblC3N+Q==}
+  /@enconvo/api@0.1.123:
+    resolution: {integrity: sha512-wdrzgQ8YjpxRR/KR/UOHr7xgYiAJQszLPyHa5VTTEVgKsqlEEnT2hmuHTvk9m/B20J9XGFjcUsUSIscHBmy+OQ==}
     hasBin: true
     dev: false
 
