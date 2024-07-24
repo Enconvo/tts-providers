@@ -8,6 +8,27 @@ export default function main(ttsOptions: TTSOptions) {
 
 }
 
+/**
+ * 
+{
+    "name": "system_tts_provider",
+    "title": "System TTS",
+    "description": "System TTS Provider that allows you to use Microsoft Edge's online text-to-speech service",
+    "icon": "system.png",
+    "mode": "llm",
+    "preferences": [
+    {
+        "name": "format",
+        "title": "Speech Voice",
+        "description": "The voice to TTS.",
+        "type": "hidden",
+        "required": false,
+        "default": "m4a"
+    }
+    ]
+},
+ */
+
 export class SystemTTSProvider extends TTSProviderBase {
 
     protected async _speak({ text, audioFilePath }: { text: string; audioFilePath: string }): Promise<TTSItem> {

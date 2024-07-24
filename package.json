@@ -1,7 +1,7 @@
 {
   "$schema": "https://enconvo.com/schemas/extension.json",
   "name": "tts_providers",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Text to Speech Providers",
   "title": "TTS Providers",
   "icon": "icon.png",
@@ -12,6 +12,45 @@
   "license": "MIT",
   "type": "module",
   "commands": [
+    {
+      "name": "enconvo_mirosoft_tts_provider",
+      "title": "Enconvo Cloud Plan( Microsoft TTS )",
+      "description": "Microsoft TTS Provider that allows you to use Microsoft Azure's online text-to-speech service, provided by Enconvo Cloud Plan",
+      "icon": "enconvo.png",
+      "mode": "llm",
+      "preferences": [
+        {
+          "name": "voice",
+          "title": "Speech Voice",
+          "description": "The voice to TTS.",
+          "type": "dropdown",
+          "required": false,
+          "data": [
+            {
+              "value": "en-US-BrianMultilingualNeural",
+              "title": "Brian Multilingual - Male - English (United States)"
+            }
+          ],
+          "dataProxy": "tts_providers|azure_voices",
+          "default": "en-US-BrianMultilingualNeural"
+        },
+        {
+          "name": "speed",
+          "title": "Speech Speed",
+          "description": "The speed to TTS.",
+          "type": "dropdown",
+          "required": false,
+          "data": [
+            {
+              "value": "1.2x",
+              "title": "1.2"
+            }
+          ],
+          "dataProxy": "tts_providers|voice_speed_list",
+          "default": "1.2"
+        }
+      ]
+    },
     {
       "name": "edge_tts_provider",
       "title": "Edge TTS",
@@ -33,23 +72,21 @@
           ],
           "dataProxy": "tts_providers|edge_voices",
           "default": "en-US-BrianMultilingualNeural"
-        }
-      ]
-    },
-    {
-      "name": "system_tts_provider",
-      "title": "System TTS",
-      "description": "System TTS Provider that allows you to use Microsoft Edge's online text-to-speech service",
-      "icon": "system.png",
-      "mode": "llm",
-      "preferences": [
+        },
         {
-          "name": "format",
-          "title": "Speech Voice",
-          "description": "The voice to TTS.",
-          "type": "hidden",
+          "name": "speed",
+          "title": "Speech Speed",
+          "description": "The speed to TTS.",
+          "type": "dropdown",
           "required": false,
-          "default": "m4a"
+          "data": [
+            {
+              "value": "1.2x",
+              "title": "1.2"
+            }
+          ],
+          "dataProxy": "tts_providers|voice_speed_list",
+          "default": "1.2"
         }
       ]
     },
@@ -64,7 +101,7 @@
     {
       "name": "mirosoft_tts_provider",
       "title": "Microsoft TTS",
-      "description": "Microsoft TTS Provider that allows you to use Microsoft Azure's online text-to-speech service",
+      "description": "Microsoft TTS Provider that allows you to use [Microsoft Azure's online text-to-speech](https://learn.microsoft.com/en-us/azure/ai-services/speech-service/get-started-text-to-speech?tabs=macos%2Cterminal&pivots=programming-language-rest) service",
       "icon": "azure.png",
       "mode": "llm",
       "preferences": [
@@ -84,17 +121,34 @@
           "default": "en-US-BrianMultilingualNeural"
         },
         {
+          "name": "speed",
+          "title": "Speech Speed",
+          "description": "The speed to TTS.",
+          "type": "dropdown",
+          "required": false,
+          "data": [
+            {
+              "value": "1.2x",
+              "title": "1.2"
+            }
+          ],
+          "dataProxy": "tts_providers|voice_speed_list",
+          "default": "1.2"
+        },
+        {
           "name": "region",
           "title": "Resource Region",
           "description": "The region of the resource.",
           "type": "textfield",
           "required": true,
+          "defaultProxy": "speech_recognize_providers|azure",
           "default": ""
         },
         {
           "name": "resource_key",
           "title": "Resource Key",
           "description": "The resource key of the resource.",
+          "defaultProxy": "speech_recognize_providers|azure",
           "type": "password",
           "required": true,
           "default": ""
@@ -110,9 +164,17 @@
       "mode": "no-view"
     },
     {
+      "name": "voice_speed_list",
+      "title": "voice_speed_list",
+      "description": "get voice_speed_list list",
+      "icon": "icon.png",
+      "showInCommandList": false,
+      "mode": "no-view"
+    },
+    {
       "name": "openai_tts_provider",
       "title": "OpenAI TTS",
-      "description": "OpenAI TTS Provider that allows you to use OpenAI's online text-to-speech service",
+      "description": "OpenAI TTS Provider that allows you to use [OpenAI's online text-to-speech](https://platform.openai.com/docs/guides/text-to-speech) service",
       "icon": "openai.png",
       "mode": "llm",
       "preferences": [
@@ -187,63 +249,21 @@
               "value": "shimmer"
             }
           ]
-        }
-      ]
-    },
-    {
-      "name": "elevenlabs_tts_provider",
-      "title": "ElevenLabs TTS",
-      "description": "ElevenLabs TTS Provider that allows you to use OpenAI's online text-to-speech service",
-      "icon": "elevenlabs.png",
-      "mode": "llm",
-      "preferences": [
-        {
-          "name": "api_key",
-          "description": "Api Key",
-          "type": "password",
-          "required": false,
-          "title": "Api Key",
-          "default": "",
-          "placeholder": "ElevenLabs Api Key"
         },
         {
-          "name": "baseUrl",
-          "description": "ElevenLabs api base url",
-          "type": "textfield",
-          "required": false,
-          "title": "ElevenLabs Api Base Url",
-          "default": "https://api.elevenlabs.io/v1",
-          "placeholder": "ElevenLabs Api Base Url"
-        },
-        {
-          "name": "modelName",
-          "description": "The model to TTS.",
+          "name": "speed",
+          "title": "Speech Speed",
+          "description": "The speed to TTS.",
           "type": "dropdown",
           "required": false,
-          "title": "Model Name",
-          "default": "eleven_multilingual_v2",
           "data": [
             {
-              "title": "Eleven Multilingual v2",
-              "value": "eleven_multilingual_v2"
+              "value": "1.2x",
+              "title": "1.2"
             }
           ],
-          "dataProxy": "tts_providers|elevenlabs_models"
-        },
-        {
-          "name": "voice",
-          "description": "The voice to TTS.",
-          "type": "dropdown",
-          "required": false,
-          "title": "Voice",
-          "default": "21m00Tcm4TlvDq8ikWAM",
-          "data": [
-            {
-              "title": "Rachel - female - american - calm- young- narration",
-              "value": "21m00Tcm4TlvDq8ikWAM"
-            }
-          ],
-          "dataProxy": "tts_providers|elevenlabs_voices"
+          "dataProxy": "tts_providers|voice_speed_list",
+          "default": "1.2"
         }
       ]
     },
