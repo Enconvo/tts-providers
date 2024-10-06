@@ -22,7 +22,8 @@ export class MicrosoftTTSProvider extends TTSProviderBase {
     ttsSpeak(text: string, audioFilePath: string) {
         return new Promise((resolve, reject) => {
             // This example requires environment variables named "SPEECH_KEY" and "SPEECH_REGION"
-            const speechConfig = SpeechConfig.fromSubscription(this.ttsOptions.resource_key, this.ttsOptions.region);
+            console.log("ttsOptions", this.ttsOptions)
+            const speechConfig = SpeechConfig.fromSubscription(this.ttsOptions.resource_key, this.ttsOptions.region.value);
             const audioConfig = AudioConfig.fromAudioFileOutput(audioFilePath);
             // mp3
             speechConfig.speechSynthesisOutputFormat = SpeechSynthesisOutputFormat.Audio16Khz32KBitRateMonoMp3
