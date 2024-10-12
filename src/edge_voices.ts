@@ -25,6 +25,9 @@ async function fetch_model() {
                 }
             }
         })
+        models.sort((a, b) => {
+            return a.title.localeCompare(b.title)
+        })
     } catch (err) {
         console.log(err)
     }

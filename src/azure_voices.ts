@@ -11869,10 +11869,15 @@ async function fetch_model() {
     try {
         models = voices.map((item) => {
             return {
-                "title": `${item.LocalName} - ${item.Gender} - ${item.LocaleName}`,
+                "title": `${item.DisplayName} - ${item.LocalName} - ${item.Gender} - ${item.LocaleName}`,
                 "value": `${item.ShortName}`
             }
         })
+        //按照字母排序
+        models.sort((a, b) => {
+            return a.title.localeCompare(b.title)
+        })
+
     } catch (err) {
         console.log(err)
     }
