@@ -20,7 +20,12 @@ class Cache {
     async get(key: string, defaultValue: any = null) {
         try {
             const encrypedKey = MD5Util.getMd5(key)
-            const data = fs.readFileSync(`${this.basePath}/${encrypedKey}`).toString()
+            const filePath = `${this.basePath}/${encrypedKey}`
+            if (!fs.existsSync(filePath)) {
+                return defaultValue
+            }
+
+            const data = fs.readFileSync(filePath).toString()
             const json = JSON.parse(data)
 
             // 过期
@@ -46,7 +51,7 @@ class Cache {
 
 
 const cache = new Cache({
-    basePath: `${homedir}/Library/Caches/com.frostyeve.enconvo/token`, // (optional) Path where cache files are stored (default).
+    basePath: `${homedir}/Library/Caches/com.frostyeve.enconvo/cache`, // (optional) Path where cache files are stored (default).
 });
 
 export class EnconvoMicrosoftTTSProvider extends TTSProviderBase {
