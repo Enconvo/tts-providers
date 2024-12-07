@@ -21,7 +21,8 @@ export class OpenAITTSProvider extends TTSProvider {
         const data = {
             model: options.modelName.value,
             input: text,
-            voice: options.voice.value
+            voice: options.voice.value,
+            speed: options.speed?.value || 1.2
         };
 
         const ttsUrl = `${options.baseUrl}/audio/speech`

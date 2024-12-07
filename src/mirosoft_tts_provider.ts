@@ -1,3 +1,4 @@
+import { _SSMLTemplate } from "./ssml.ts";
 import { TTSItem, TTSOptions, TTSProvider } from "./tts_provider.ts";
 import { SpeechConfig, AudioConfig, SpeechSynthesizer, ResultReason, SpeechSynthesisOutputFormat } from "microsoft-cognitiveservices-speech-sdk";
 export default function main(ttsOptions: TTSOptions) {
@@ -22,7 +23,6 @@ export class MicrosoftTTSProvider extends TTSProvider {
     ttsSpeak(text: string, audioFilePath: string) {
         return new Promise((resolve, reject) => {
             // This example requires environment variables named "SPEECH_KEY" and "SPEECH_REGION"
-            console.log("ttsOptions", this.options)
             const speechConfig = SpeechConfig.fromSubscription(this.options.resource_key, this.options.region.value);
             const audioConfig = AudioConfig.fromAudioFileOutput(audioFilePath);
             // mp3
@@ -34,15 +34,15 @@ export class MicrosoftTTSProvider extends TTSProvider {
             // Create the speech synthesizer.
             var synthesizer = new SpeechSynthesizer(speechConfig, audioConfig);
 
-            synthesizer.speakTextAsync(text,
+            const ssml = _SSMLTemplate(text, this.options.voice.value, { rate: this.options.speed?.value })
+
+            synthesizer.speakSsmlAsync(ssml,
                 function (result: any) {
                     if (result.reason === ResultReason.SynthesizingAudioCompleted) {
                         synthesizer.close();
-                        synthesizer = null;
                         resolve(null)
                     } else {
                         synthesizer.close();
-                        synthesizer = null;
                         console.error("Speech synthesis canceled, " + result.errorDetails +
                             "\nDid you set the speech resource key and region values?");
                         reject(result.errorDetails)
@@ -51,11 +51,8 @@ export class MicrosoftTTSProvider extends TTSProvider {
                 function (err) {
                     console.trace("err - " + err);
                     synthesizer.close();
-                    synthesizer = null;
                     reject(err)
                 });
-
-
         })
     }
 }

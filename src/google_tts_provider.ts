@@ -24,8 +24,8 @@ export class GoogleTTSProvider extends TTSProvider {
                         text: text
                     },
                     voice: {
-                        name: this.options.voice,
-                        languageCode: 'en-US' // This could be made configurable through ttsOptions
+                        name: 'en-US-Casual-K',
+                        languageCode: 'en-US'
                     },
                     audioConfig: {
                         audioEncoding: 'MP3'
