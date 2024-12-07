@@ -1,9 +1,26 @@
 import { writeFileSync } from "node:fs";
 import { TTSProvider, TTSItem, TTSOptions } from "./tts_provider.ts";
 import axios from "axios";
-import { MD5Util, res } from "@enconvo/api";
+import { environment, MD5Util, res } from "@enconvo/api";
+import textToSpeech from '@google-cloud/text-to-speech';
+import { writeFile } from "node:fs/promises";
 
 
+// (async () => {
+//     console.log("test")
+//     const client = new textToSpeech.TextToSpeechClient({
+//         apiKey: "AIzaSyBxI0zVV2Cv8USOJfCLx31LjmHSxMEqSUA"
+//     });
+//     const request = {
+//         input: { text: 'Who are you ? ' },
+//         voice: { name: 'en-US-Casual-K', languageCode: 'en-US' },
+//         audioConfig: { audioEncoding: 'MP3' },
+//     };
+//     const [response] = await client.synthesizeSpeech(request);
+//     const audioContent = response.audioContent;
+//     const audioFilePath = 'output.mp3';
+//     await writeFile(audioFilePath, audioContent, 'binary');
+// })()
 
 export default function main(ttsOptions: TTSOptions) {
     return new GoogleTTSProvider({ ttsOptions })
@@ -12,6 +29,8 @@ export default function main(ttsOptions: TTSOptions) {
 export class GoogleTTSProvider extends TTSProvider {
 
     protected async _speak({ text, audioFilePath }: { text: string; audioFilePath: string; }): Promise<TTSItem> {
+
+        console.log("speak", this.options)
 
         const response = await axios({
             method: 'post',
@@ -25,8 +44,8 @@ export class GoogleTTSProvider extends TTSProvider {
                     text: text
                 },
                 voice: {
-                    name: 'en-US-Casual-K',
-                    languageCode: 'en-US'
+                    name: this.options.voice.value,
+                    languageCode: this.options.voice.languageCode
                 },
                 audioConfig: {
                     audioEncoding: 'MP3'

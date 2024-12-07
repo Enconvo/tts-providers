@@ -250,33 +250,8 @@
           "type": "dropdown",
           "required": false,
           "title": "Voice",
-          "default": "alloy",
-          "data": [
-            {
-              "title": "alloy",
-              "value": "alloy"
-            },
-            {
-              "title": "echo",
-              "value": "echo"
-            },
-            {
-              "title": "fable",
-              "value": "fable"
-            },
-            {
-              "title": "onyx",
-              "value": "onyx"
-            },
-            {
-              "title": "nova",
-              "value": "nova"
-            },
-            {
-              "title": "shimmer",
-              "value": "shimmer"
-            }
-          ]
+          "default": "en-US-Journey-D",
+          "dataProxy": "tts_providers|google_voices"
         },
         {
           "name": "speed",
@@ -286,6 +261,26 @@
           "required": false,
           "dataProxy": "tts_providers|voice_speed_list",
           "default": "1.2"
+        }
+      ]
+    },
+    {
+      "name": "google_voices",
+      "title": "Google Voices",
+      "description": "get google_voices list",
+      "icon": "icon.png",
+      "showInCommandList": false,
+      "mode": "no-view",
+      "preferences": [
+        {
+          "name": "api_key",
+          "description": "Google Api Key",
+          "type": "password",
+          "required": false,
+          "title": "Api Key",
+          "default": "",
+          "defaultProxy": "KEY_GOOGLE_APIKEY",
+          "placeholder": "AI****"
         }
       ]
     },
