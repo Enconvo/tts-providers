@@ -3,6 +3,7 @@ import fs from "fs"
 import { homedir } from "os";
 import { MD5Util } from "./util/md5.ts";
 import { RATE } from "msedge-tts";
+import { environment } from "@enconvo/api";
 
 export interface TTSItem {
     text: string;
@@ -33,19 +34,15 @@ export abstract class TTSProvider {
     async speak(text: string): Promise<TTSItem> {
         const textMD5 = MD5Util.getMd5(text)
         // import at the top of the file
-
-        const commandName = this.options.commandName || this.options.originCommandName
-        const extensionName = "tts"
-
-        const cachePath = fs.existsSync(path.join(homedir(), `Library/Caches/com.frostyeve.enconvo/cache/${extensionName}/${commandName}/`)) ? path.join(homedir(), `Library/Caches/com.frostyeve.enconvo/cache/${extensionName}/${commandName}/`) : (fs.mkdirSync(path.join(homedir(), `Library/Caches/com.frostyeve.enconvo/cache/${extensionName}/${commandName}/`), { recursive: true }) ? path.join(homedir(), `Library/Caches/com.frostyeve.enconvo/cache/${extensionName}/${commandName}/`) : "")
-        const optionName = MD5Util.getMd5(JSON.stringify(this.options))
-        let outputDir = `${cachePath}/tts/${commandName}/${optionName}/`
-
+        const optionName = MD5Util.getMd5(`${this.options.voice.value || ''}_${this.options.speed?.value || ''}_${this.options.model?.value || ''}_${this.options.style || ''}`)
+        let outputDir = `${environment.cachePath}/${optionName}/`
         if (!fs.existsSync(outputDir)) {
             fs.mkdirSync(outputDir, { recursive: true });
         }
 
         const audioFilePath = path.join(outputDir, `${textMD5}.${this.options.format || "mp3"}`);
+
+        console.log("outputDir", this.options, audioFilePath, fs.existsSync(audioFilePath))
 
         if (fs.existsSync(audioFilePath)) {
             // get absolute path
