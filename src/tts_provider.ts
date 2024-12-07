@@ -38,7 +38,8 @@ export abstract class TTSProvider {
         const extensionName = "tts"
 
         const cachePath = fs.existsSync(path.join(homedir(), `Library/Caches/com.frostyeve.enconvo/cache/${extensionName}/${commandName}/`)) ? path.join(homedir(), `Library/Caches/com.frostyeve.enconvo/cache/${extensionName}/${commandName}/`) : (fs.mkdirSync(path.join(homedir(), `Library/Caches/com.frostyeve.enconvo/cache/${extensionName}/${commandName}/`), { recursive: true }) ? path.join(homedir(), `Library/Caches/com.frostyeve.enconvo/cache/${extensionName}/${commandName}/`) : "")
-        let outputDir = `${cachePath}/tts/${commandName}/${this.options?.voice?.value}_${this.options?.modelName?.value ? this.options?.modelName?.value : "default"}_${this.options?.style?.value ? this.options?.style?.value : "default"}/`
+        const optionName = MD5Util.getMd5(JSON.stringify(this.options))
+        let outputDir = `${cachePath}/tts/${commandName}/${optionName}/`
 
         if (!fs.existsSync(outputDir)) {
             fs.mkdirSync(outputDir, { recursive: true });

@@ -6,11 +6,9 @@ export default function main(ttsOptions: TTSOptions) {
     return new EnconvoMicrosoftTTSProvider({ ttsOptions })
 
 }
-import { ProsodyOptions, MsEdgeTTS } from "msedge-tts";
+
 import { cache } from "./util/cache.ts";
-import { VOICE_LANG_REGEX } from "./ssml.ts";
-
-
+import { _SSMLTemplate } from "./ssml.ts";
 
 export class EnconvoMicrosoftTTSProvider extends TTSProvider {
 
@@ -46,7 +44,7 @@ export class EnconvoMicrosoftTTSProvider extends TTSProvider {
                 // Create the speech synthesizer.
                 var synthesizer = new SpeechSynthesizer(speechConfig, audioConfig);
 
-                const ssml = this._SSMLTemplate(text, this.options.voice.value, { rate: this.options.speed?.value })
+                const ssml = _SSMLTemplate(text, this.options.voice.value, { rate: this.options.speed?.value })
 
 
                 synthesizer.speakSsmlAsync(ssml,
@@ -106,28 +104,6 @@ export class EnconvoMicrosoftTTSProvider extends TTSProvider {
         await cache.set("azureSpeechRegion", data.region, 10 * 60)
 
         return { token: data.token, region: data.region }
-    }
-
-
-
-
-
-    _SSMLTemplate(input: string, voice: string, options: ProsodyOptions = {}): string {
-        // in case future updates to the edge API block these elements, we'll be concatenating strings.
-        options = { ...new ProsodyOptions(), ...options }
-
-        const voiceLangMatch = VOICE_LANG_REGEX.exec(voice)
-        if (!voiceLangMatch) throw new Error("Could not infer voiceLocale from voiceName, and no voiceLocale was specified!")
-        const voiceLocale = voiceLangMatch[0]
-
-        console.log("options", options)
-        return `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="https://www.w3.org/2001/mstts" xml:lang="${voiceLocale}">
-                <voice name="${voice}">
-                    <prosody pitch="${options.pitch}" rate="${options.rate}" volume="${options.volume}">
-                        ${input}
-                    </prosody> 
-                </voice>
-            </speak>`
     }
 
 }
