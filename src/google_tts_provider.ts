@@ -30,8 +30,6 @@ export class GoogleTTSProvider extends TTSProvider {
 
     protected async _speak({ text, audioFilePath }: { text: string; audioFilePath: string; }): Promise<TTSItem> {
 
-        console.log("speak", this.options)
-
         const response = await axios({
             method: 'post',
             url: 'https://texttospeech.googleapis.com/v1/text:synthesize',
@@ -45,6 +43,7 @@ export class GoogleTTSProvider extends TTSProvider {
                 },
                 voice: {
                     name: this.options.voice.value,
+                    //@ts-ignore
                     languageCode: this.options.voice.languageCode
                 },
                 audioConfig: {
@@ -55,6 +54,7 @@ export class GoogleTTSProvider extends TTSProvider {
 
         // The response contains audio content as a base64 encoded string
         const audioContent = Buffer.from(response.data.audioContent, 'base64');
+
         writeFileSync(audioFilePath, audioContent);
 
         return {
