@@ -2,13 +2,13 @@ import { TTSProvider, TTSItem, TTSOptions } from "./tts_provider.ts";
 import axios from "axios";
 import fs from "fs";
 
-export class GoogleTTSProvider extends TTSProvider {
-    private apiKey: string;
+export default function main(ttsOptions: TTSOptions) {
 
-    constructor(fields: { ttsOptions: TTSOptions; apiKey: string }) {
-        super(fields);
-        this.apiKey = fields.apiKey;
-    }
+    return new GoogleTTSProvider({ ttsOptions })
+}
+
+export class GoogleTTSProvider extends TTSProvider {
+
 
     protected async _speak({ text, audioFilePath }: { text: string; audioFilePath: string; }): Promise<TTSItem> {
         try {
@@ -17,7 +17,7 @@ export class GoogleTTSProvider extends TTSProvider {
                 url: 'https://texttospeech.googleapis.com/v1/text:synthesize',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-goog-api-key': this.apiKey
+                    'X-goog-api-key': this.options.apiKey
                 },
                 data: {
                     input: {
