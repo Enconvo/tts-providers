@@ -1,8 +1,6 @@
 import path from "path";
 import fs from "fs"
-import { homedir } from "os";
 import { MD5Util } from "./util/md5.ts";
-import { RATE } from "msedge-tts";
 import { environment } from "@enconvo/api";
 
 export interface TTSItem {
@@ -15,7 +13,7 @@ export type TTSOptions = {
         value: string;
     };
     speed?: {
-        value: RATE | string | number;
+        value: number;
     };
     format?: string;
     [key: string]: any;

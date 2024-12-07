@@ -1,54 +1,26 @@
 import { exec } from "child_process";
 import { TTSItem, TTSOptions, TTSProvider } from "./tts_provider.ts";
 import { promisify } from "util";
-export default function main(ttsOptions: TTSOptions) {
 
-    console.log("init")
+export default function main(ttsOptions: TTSOptions) {
     return new SystemTTSProvider({ ttsOptions })
 
 }
-
-/**
- * 
-{
-    "name": "system_tts_provider",
-    "title": "System TTS",
-    "description": "System TTS Provider that allows you to use Microsoft Edge's online text-to-speech service",
-    "icon": "system.png",
-    "mode": "llm",
-    "preferences": [
-    {
-        "name": "format",
-        "title": "Speech Voice",
-        "description": "The voice to TTS.",
-        "type": "hidden",
-        "required": false,
-        "default": "m4a"
-    }
-    ]
-},
- */
 
 export class SystemTTSProvider extends TTSProvider {
 
     protected async _speak({ text, audioFilePath }: { text: string; audioFilePath: string }): Promise<TTSItem> {
 
-        try {
+        console.log("speak", audioFilePath)
 
-            console.log("speak", audioFilePath)
+        const execSync = promisify(exec)
+        const voice = this.options.voice.value === 'default' ? '' : `-v ${this.options.voice.value}`
 
-            const execSync = promisify(exec)
-            await execSync(`say '${text}' -o ${audioFilePath}`);
+        await execSync(`say '${text}' ${voice} -r ${(this.options.speed?.value || 1.2) * 100} -o ${audioFilePath}`);
 
-            return {
-                path: audioFilePath,
-                text: text
-            }
-        } catch (error) {
-            return {
-                path: "",
-                text: text
-            }
+        return {
+            path: audioFilePath,
+            text: text
         }
     }
 }
