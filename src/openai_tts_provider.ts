@@ -1,4 +1,4 @@
-import { TTSItem, TTSOptions, TTSProviderBase } from "./tts_provider.ts";
+import { TTSItem, TTSOptions, TTSProvider } from "./tts_provider.ts";
 import axios from "axios";
 import { writeFile } from "fs";
 import { promisify } from "util";
@@ -8,13 +8,13 @@ export default function main(ttsOptions: TTSOptions) {
     return new OpenAITTSProvider({ ttsOptions })
 }
 
-export class OpenAITTSProvider extends TTSProviderBase {
+export class OpenAITTSProvider extends TTSProvider {
 
     protected async _speak({ text, audioFilePath }: { text: string; audioFilePath: string }): Promise<TTSItem> {
 
         const writeFileAsync = promisify(writeFile);
 
-        const options = this.ttsOptions
+        const options = this.options
 
         const OPENAI_API_KEY = options.openAIApiKey; // Replace with your actual API key
 

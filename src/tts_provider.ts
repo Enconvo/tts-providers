@@ -2,6 +2,7 @@ import path from "path";
 import fs from "fs"
 import { homedir } from "os";
 import { MD5Util } from "./util/md5.ts";
+import { RATE } from "msedge-tts";
 
 export interface TTSItem {
     text: string;
@@ -9,17 +10,22 @@ export interface TTSItem {
 }
 
 export type TTSOptions = {
-    voice: string;
+    voice: {
+        value: string;
+    };
+    speed?: {
+        value: RATE | string | number;
+    };
     format?: string;
     [key: string]: any;
 };
 
 
-export abstract class TTSProviderBase {
-    protected ttsOptions: TTSOptions;
+export abstract class TTSProvider {
+    protected options: TTSOptions;
 
     constructor(fields: { ttsOptions: TTSOptions }) {
-        this.ttsOptions = fields.ttsOptions
+        this.options = fields.ttsOptions
     }
 
     protected abstract _speak({ text, audioFilePath }: { text: string; audioFilePath: string; }): Promise<TTSItem>;
@@ -28,17 +34,17 @@ export abstract class TTSProviderBase {
         const textMD5 = MD5Util.getMd5(text)
         // import at the top of the file
 
-        const commandName = this.ttsOptions.commandName || this.ttsOptions.originCommandName
+        const commandName = this.options.commandName || this.options.originCommandName
         const extensionName = "tts"
 
         const cachePath = fs.existsSync(path.join(homedir(), `Library/Caches/com.frostyeve.enconvo/cache/${extensionName}/${commandName}/`)) ? path.join(homedir(), `Library/Caches/com.frostyeve.enconvo/cache/${extensionName}/${commandName}/`) : (fs.mkdirSync(path.join(homedir(), `Library/Caches/com.frostyeve.enconvo/cache/${extensionName}/${commandName}/`), { recursive: true }) ? path.join(homedir(), `Library/Caches/com.frostyeve.enconvo/cache/${extensionName}/${commandName}/`) : "")
-        let outputDir = `${cachePath}/tts/${commandName}/${this.ttsOptions?.voice?.value}_${this.ttsOptions?.modelName?.value ? this.ttsOptions?.modelName?.value : "default"}_${this.ttsOptions?.style?.value ? this.ttsOptions?.style?.value : "default"}/`
+        let outputDir = `${cachePath}/tts/${commandName}/${this.options?.voice?.value}_${this.options?.modelName?.value ? this.options?.modelName?.value : "default"}_${this.options?.style?.value ? this.options?.style?.value : "default"}/`
 
         if (!fs.existsSync(outputDir)) {
             fs.mkdirSync(outputDir, { recursive: true });
         }
 
-        const audioFilePath = path.join(outputDir, `${textMD5}.${this.ttsOptions.format || "mp3"}`);
+        const audioFilePath = path.join(outputDir, `${textMD5}.${this.options.format || "mp3"}`);
 
         if (fs.existsSync(audioFilePath)) {
             // get absolute path
@@ -48,7 +54,7 @@ export abstract class TTSProviderBase {
             }
         }
 
-        async function executeSpeak(provider: TTSProviderBase, text: string, audioFilePath: string, retry: number) {
+        async function executeSpeak(provider: TTSProvider, text: string, audioFilePath: string, retry: number) {
             try {
                 const result = await provider._speak({ text, audioFilePath });
                 return result;

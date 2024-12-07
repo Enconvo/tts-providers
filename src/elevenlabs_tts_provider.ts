@@ -1,4 +1,4 @@
-import { TTSItem, TTSOptions, TTSProviderBase } from "./tts_provider.ts";
+import { TTSItem, TTSOptions, TTSProvider } from "./tts_provider.ts";
 import axios from "axios";
 import { writeFile } from "fs";
 import { promisify } from "util";
@@ -68,13 +68,13 @@ export default function main(ttsOptions: TTSOptions) {
     return new EventLabsTTSProvider({ ttsOptions })
 }
 
-export class EventLabsTTSProvider extends TTSProviderBase {
+export class EventLabsTTSProvider extends TTSProvider {
 
     protected async _speak({ text, audioFilePath }: { text: string; audioFilePath: string }): Promise<TTSItem> {
 
         const writeFileAsync = promisify(writeFile);
 
-        const options = this.ttsOptions
+        const options = this.options
 
         const data = {
             "text": text,

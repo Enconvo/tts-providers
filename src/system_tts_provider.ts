@@ -1,5 +1,5 @@
 import { exec } from "child_process";
-import { TTSItem, TTSOptions, TTSProviderBase } from "./tts_provider.ts";
+import { TTSItem, TTSOptions, TTSProvider } from "./tts_provider.ts";
 import { promisify } from "util";
 export default function main(ttsOptions: TTSOptions) {
 
@@ -29,7 +29,7 @@ export default function main(ttsOptions: TTSOptions) {
 },
  */
 
-export class SystemTTSProvider extends TTSProviderBase {
+export class SystemTTSProvider extends TTSProvider {
 
     protected async _speak({ text, audioFilePath }: { text: string; audioFilePath: string }): Promise<TTSItem> {
 

@@ -1,0 +1,7 @@
+packages:
+  - enconvo_api
+  - enconvo
+  - prompt 
+  - modules/*
+  - packages/*
+  - thirds/*

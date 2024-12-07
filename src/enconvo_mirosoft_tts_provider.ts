@@ -1,60 +1,79 @@
 import { env } from "process";
-import { TTSItem, TTSOptions, TTSProviderBase } from "./tts_provider.ts";
+import { TTSItem, TTSOptions, TTSProvider } from "./tts_provider.ts";
 import { SpeechConfig, AudioConfig, SpeechSynthesizer, ResultReason, SpeechSynthesisOutputFormat } from "microsoft-cognitiveservices-speech-sdk";
 export default function main(ttsOptions: TTSOptions) {
 
     return new EnconvoMicrosoftTTSProvider({ ttsOptions })
 
 }
-import { homedir } from "os";
-import fs from "fs";
-import { MD5Util } from "./util/md5.ts";
+import { ProsodyOptions, MsEdgeTTS } from "msedge-tts";
+import { cache } from "./util/cache.ts";
+import { VOICE_LANG_REGEX } from "./ssml.ts";
 
 
-class Cache {
-    private basePath: string
-    constructor({ basePath }: { basePath: string }) {
-        this.basePath = basePath
-    }
 
-    async get(key: string, defaultValue: any = null) {
-        try {
-            const encrypedKey = MD5Util.getMd5(key)
-            const filePath = `${this.basePath}/${encrypedKey}`
-            if (!fs.existsSync(filePath)) {
-                return defaultValue
-            }
+export class EnconvoMicrosoftTTSProvider extends TTSProvider {
 
-            const data = fs.readFileSync(filePath).toString()
-            const json = JSON.parse(data)
 
-            // 过期
-            if (json.expireAt < Date.now()) {
-                return defaultValue
-            }
-            return json.value
-        } catch (e) {
-            return defaultValue
+
+    protected async _speak({ text, audioFilePath }: { text: string; audioFilePath: string }): Promise<TTSItem> {
+
+        await this.ttsSpeak(text, audioFilePath)
+        return {
+            path: audioFilePath,
+            text: text
         }
     }
 
-    async set(key: string, value: any, ttl: number) {
-        const encrypedKey = MD5Util.getMd5(key)
-        fs.writeFileSync(`${this.basePath}/${encrypedKey}`, JSON.stringify({
-            value,
-            ttl,
-            expireAt: Date.now() + ttl * 1000
-        }))
+
+    ttsSpeak(text: string, audioFilePath: string) {
+        return new Promise(async (resolve, reject) => {
+
+            try {
+
+                const { token, region } = await this.getToken()
+                console.log("token", token, "region", region)
+
+                const speechConfig = SpeechConfig.fromAuthorizationToken(token, region);
+                const audioConfig = AudioConfig.fromAudioFileOutput(audioFilePath);
+
+                // mp3
+                speechConfig.speechSynthesisOutputFormat = SpeechSynthesisOutputFormat.Audio16Khz32KBitRateMonoMp3
+
+                // The language of the voice that speaks.
+                speechConfig.speechSynthesisVoiceName = this.options.voice.value;
+
+                // Create the speech synthesizer.
+                var synthesizer = new SpeechSynthesizer(speechConfig, audioConfig);
+
+                const ssml = this._SSMLTemplate(text, this.options.voice.value, { rate: this.options.speed?.value })
+
+
+                synthesizer.speakSsmlAsync(ssml,
+                    function (result: any) {
+                        if (result.reason === ResultReason.SynthesizingAudioCompleted) {
+                            synthesizer.close();
+                            resolve(null)
+                        } else {
+                            synthesizer.close();
+                            console.error("Speech synthesis canceled, " + result.errorDetails +
+                                "\nDid you set the speech resource key and region values?");
+                            reject(result.errorDetails)
+                        }
+                    },
+                    function (err) {
+                        console.trace("err - " + err);
+                        synthesizer.close();
+                        reject(err)
+                    });
+
+            } catch (e) {
+                console.error(e)
+                reject(e)
+            }
+        })
     }
-}
 
-
-
-const cache = new Cache({
-    basePath: `${homedir}/Library/Caches/com.frostyeve.enconvo/cache`, // (optional) Path where cache files are stored (default).
-});
-
-export class EnconvoMicrosoftTTSProvider extends TTSProviderBase {
 
     async getToken(): Promise<{ token: string, region: string }> {
         // 本地缓存中寻找
@@ -90,61 +109,26 @@ export class EnconvoMicrosoftTTSProvider extends TTSProviderBase {
     }
 
 
-    protected async _speak({ text, audioFilePath }: { text: string; audioFilePath: string }): Promise<TTSItem> {
 
-        await this.ttsSpeak(text, audioFilePath)
-        return {
-            path: audioFilePath,
-            text: text
-        }
+
+
+    _SSMLTemplate(input: string, voice: string, options: ProsodyOptions = {}): string {
+        // in case future updates to the edge API block these elements, we'll be concatenating strings.
+        options = { ...new ProsodyOptions(), ...options }
+
+        const voiceLangMatch = VOICE_LANG_REGEX.exec(voice)
+        if (!voiceLangMatch) throw new Error("Could not infer voiceLocale from voiceName, and no voiceLocale was specified!")
+        const voiceLocale = voiceLangMatch[0]
+
+        console.log("options", options)
+        return `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="https://www.w3.org/2001/mstts" xml:lang="${voiceLocale}">
+                <voice name="${voice}">
+                    <prosody pitch="${options.pitch}" rate="${options.rate}" volume="${options.volume}">
+                        ${input}
+                    </prosody> 
+                </voice>
+            </speak>`
     }
 
-
-    ttsSpeak(text: string, audioFilePath: string) {
-        return new Promise(async (resolve, reject) => {
-
-            try {
-
-                const { token, region } = await this.getToken()
-                console.log("token", token, "region", region)
-
-                const speechConfig = SpeechConfig.fromAuthorizationToken(token, region);
-                const audioConfig = AudioConfig.fromAudioFileOutput(audioFilePath);
-                // mp3
-                speechConfig.speechSynthesisOutputFormat = SpeechSynthesisOutputFormat.Audio16Khz32KBitRateMonoMp3
-
-                // The language of the voice that speaks.
-                speechConfig.speechSynthesisVoiceName = this.ttsOptions.voice.value;
-
-                // Create the speech synthesizer.
-                var synthesizer = new SpeechSynthesizer(speechConfig, audioConfig);
-
-                synthesizer.speakTextAsync(text,
-                    function (result: any) {
-                        if (result.reason === ResultReason.SynthesizingAudioCompleted) {
-                            synthesizer.close();
-                            synthesizer = null;
-                            resolve(null)
-                        } else {
-                            synthesizer.close();
-                            synthesizer = null;
-                            console.error("Speech synthesis canceled, " + result.errorDetails +
-                                "\nDid you set the speech resource key and region values?");
-                            reject(result.errorDetails)
-                        }
-                    },
-                    function (err) {
-                        console.trace("err - " + err);
-                        synthesizer.close();
-                        synthesizer = null;
-                        reject(err)
-                    });
-
-            } catch (e) {
-                console.error(e)
-                reject(e)
-            }
-        })
-    }
 }
 

@@ -1,4 +1,4 @@
-import { TTSItem, TTSOptions, TTSProviderBase } from "./tts_provider.ts";
+import { TTSItem, TTSOptions, TTSProvider } from "./tts_provider.ts";
 import { SpeechConfig, AudioConfig, SpeechSynthesizer, ResultReason, SpeechSynthesisOutputFormat } from "microsoft-cognitiveservices-speech-sdk";
 export default function main(ttsOptions: TTSOptions) {
 
@@ -7,7 +7,7 @@ export default function main(ttsOptions: TTSOptions) {
 }
 
 
-export class MicrosoftTTSProvider extends TTSProviderBase {
+export class MicrosoftTTSProvider extends TTSProvider {
 
     protected async _speak({ text, audioFilePath }: { text: string; audioFilePath: string }): Promise<TTSItem> {
 
@@ -22,14 +22,14 @@ export class MicrosoftTTSProvider extends TTSProviderBase {
     ttsSpeak(text: string, audioFilePath: string) {
         return new Promise((resolve, reject) => {
             // This example requires environment variables named "SPEECH_KEY" and "SPEECH_REGION"
-            console.log("ttsOptions", this.ttsOptions)
-            const speechConfig = SpeechConfig.fromSubscription(this.ttsOptions.resource_key, this.ttsOptions.region.value);
+            console.log("ttsOptions", this.options)
+            const speechConfig = SpeechConfig.fromSubscription(this.options.resource_key, this.options.region.value);
             const audioConfig = AudioConfig.fromAudioFileOutput(audioFilePath);
             // mp3
             speechConfig.speechSynthesisOutputFormat = SpeechSynthesisOutputFormat.Audio16Khz32KBitRateMonoMp3
 
             // The language of the voice that speaks.
-            speechConfig.speechSynthesisVoiceName = this.ttsOptions.voice.value;
+            speechConfig.speechSynthesisVoiceName = this.options.voice.value;
 
             // Create the speech synthesizer.
             var synthesizer = new SpeechSynthesizer(speechConfig, audioConfig);
