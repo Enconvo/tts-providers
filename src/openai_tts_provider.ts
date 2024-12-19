@@ -1,16 +1,17 @@
-import { TTSItem, TTSOptions, TTSProvider } from "./tts_provider.ts";
+
+import { TTSProvider } from "@enconvo/api";
 import axios from "axios";
 import { writeFile } from "fs";
 import { promisify } from "util";
 
-export default function main(ttsOptions: TTSOptions) {
+export default function main(options: TTSProvider.TTSOptions) {
 
-    return new OpenAITTSProvider({ ttsOptions })
+    return new OpenAITTSProvider({ options })
 }
 
 export class OpenAITTSProvider extends TTSProvider {
 
-    protected async _speak({ text, audioFilePath }: { text: string; audioFilePath: string }): Promise<TTSItem> {
+    protected async _speak({ text, audioFilePath }: { text: string; audioFilePath: string }): Promise<TTSProvider.TTSItem> {
 
         const writeFileAsync = promisify(writeFile);
 

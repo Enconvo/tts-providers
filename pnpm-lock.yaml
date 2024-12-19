@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@enconvo/api':
-        specifier: link:/Users/ysnows/Documents/Project/enconvo.nodejs/enconvo_api
-        version: link:../../enconvo.nodejs/enconvo_api
+        specifier: ^0.1.153
+        version: 0.1.153
       '@google-cloud/text-to-speech':
         specifier: ^5.6.0
         version: 5.6.0
@@ -271,6 +271,10 @@ packages:
   '@cspotcode/source-map-support@0.8.1':
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
     engines: {node: '>=12'}
+
+  '@enconvo/api@0.1.153':
+    resolution: {integrity: sha512-1Vcq79YxS92GzQRCCR4KT3CC7nrhiWozmYstlcHAuZv9wQfILwOlWOL/0YOwza3St7ACW+sJyS3v4WZVBYaVig==}
+    hasBin: true
 
   '@esbuild/android-arm64@0.18.20':
     resolution: {integrity: sha512-Nz4rJcchGDtENV0eMKUNa6L12zz2zBDXuhj/Vjh18zGqB44Bi7MBMSXjgunJgjRhCmKOjnPuZp4Mb6OKqtMHLQ==}
@@ -2629,6 +2633,8 @@ snapshots:
   '@cspotcode/source-map-support@0.8.1':
     dependencies:
       '@jridgewell/trace-mapping': 0.3.9
+
+  '@enconvo/api@0.1.153': {}
 
   '@esbuild/android-arm64@0.18.20':
     optional: true

@@ -1,5 +1,3 @@
-
-
 async function fetch_model() {
 
     // 0.25x - 4x

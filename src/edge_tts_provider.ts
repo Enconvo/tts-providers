@@ -1,15 +1,15 @@
-import { TTSItem, TTSOptions, TTSProvider } from "./tts_provider.ts";
+import { TTSProvider } from "@enconvo/api";
 import { MsEdgeTTS, OUTPUT_FORMAT } from "msedge-tts";
-export default function main(ttsOptions: TTSOptions) {
+export default function main(options: TTSProvider.TTSOptions) {
 
     console.log("init")
-    return new EdgeTTSProvider({ ttsOptions })
+    return new EdgeTTSProvider({ options })
 
 }
 
 export class EdgeTTSProvider extends TTSProvider {
 
-    protected async _speak({ text, audioFilePath }: { text: string; audioFilePath: string }): Promise<TTSItem> {
+    protected async _speak({ text, audioFilePath }: { text: string; audioFilePath: string }): Promise<TTSProvider.TTSItem> {
 
         try {
 

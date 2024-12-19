@@ -28,7 +28,7 @@ async function fetch_model(apiKey: string) {
 }
 
 export default async function main(req: Request) {
-    const { options } = await req.json()
+    const options = await req.json()
     const { text, api_key } = options
 
     const modelCacheDir = environment.assetsPath + `/models`

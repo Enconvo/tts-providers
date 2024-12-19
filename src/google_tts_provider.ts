@@ -1,15 +1,15 @@
 import { writeFileSync } from "node:fs";
-import { TTSProvider, TTSItem, TTSOptions } from "./tts_provider.ts";
 import axios from "axios";
+import { TTSProvider } from "@enconvo/api";
 
 
-export default function main(ttsOptions: TTSOptions) {
-    return new GoogleTTSProvider({ ttsOptions })
+export default function main(options: TTSProvider.TTSOptions) {
+    return new GoogleTTSProvider({ options })
 }
 
 export class GoogleTTSProvider extends TTSProvider {
 
-    protected async _speak({ text, audioFilePath }: { text: string; audioFilePath: string; }): Promise<TTSItem> {
+    protected async _speak({ text, audioFilePath }: { text: string; audioFilePath: string; }): Promise<TTSProvider.TTSItem> {
 
         const response = await axios({
             method: 'post',

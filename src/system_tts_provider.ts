@@ -1,15 +1,16 @@
+import { TTSProvider } from "@enconvo/api";
 import { exec } from "child_process";
-import { TTSItem, TTSOptions, TTSProvider } from "./tts_provider.ts";
+
 import { promisify } from "util";
 
-export default function main(ttsOptions: TTSOptions) {
-    return new SystemTTSProvider({ ttsOptions })
+export default function main(options: TTSProvider.TTSOptions) {
+    return new SystemTTSProvider({ options })
 
 }
 
 export class SystemTTSProvider extends TTSProvider {
 
-    protected async _speak({ text, audioFilePath }: { text: string; audioFilePath: string }): Promise<TTSItem> {
+    protected async _speak({ text, audioFilePath }: { text: string; audioFilePath: string }): Promise<TTSProvider.TTSItem> {
 
         console.log("speak", audioFilePath)
 

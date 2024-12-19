@@ -1,20 +1,21 @@
 import { env } from "process";
-import { TTSItem, TTSOptions, TTSProvider } from "./tts_provider.ts";
-import { SpeechConfig, AudioConfig, SpeechSynthesizer, ResultReason, SpeechSynthesisOutputFormat } from "microsoft-cognitiveservices-speech-sdk";
-export default function main(ttsOptions: TTSOptions) {
 
-    return new EnconvoMicrosoftTTSProvider({ ttsOptions })
+import { SpeechConfig, AudioConfig, SpeechSynthesizer, ResultReason, SpeechSynthesisOutputFormat } from "microsoft-cognitiveservices-speech-sdk";
+export default function main(options: TTSProvider.TTSOptions) {
+
+    return new EnconvoMicrosoftTTSProvider({ options })
 
 }
 
 import { cache } from "./util/cache.ts";
 import { _SSMLTemplate } from "./ssml.ts";
+import { TTSProvider } from "@enconvo/api";
 
 export class EnconvoMicrosoftTTSProvider extends TTSProvider {
 
 
 
-    protected async _speak({ text, audioFilePath }: { text: string; audioFilePath: string }): Promise<TTSItem> {
+    protected async _speak({ text, audioFilePath }: { text: string; audioFilePath: string }): Promise<TTSProvider.TTSItem> {
 
         await this.ttsSpeak(text, audioFilePath)
         return {
