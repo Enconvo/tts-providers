@@ -1,8 +1,6 @@
 import { TTSProvider } from "@enconvo/api";
 import { MsEdgeTTS, OUTPUT_FORMAT } from "msedge-tts";
 export default function main(options: TTSProvider.TTSOptions) {
-
-    console.log("init")
     return new EdgeTTSProvider({ options })
 
 }

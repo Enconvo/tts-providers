@@ -29,9 +29,8 @@ export class EnconvoMicrosoftTTSProvider extends TTSProvider {
         return new Promise(async (resolve, reject) => {
 
             try {
-
                 const { token, region } = await this.getToken()
-                console.log("token", token, "region", region)
+                console.log("azure token", token, "region", region)
 
                 const speechConfig = SpeechConfig.fromAuthorizationToken(token, region);
                 const audioConfig = AudioConfig.fromAudioFileOutput(audioFilePath);
