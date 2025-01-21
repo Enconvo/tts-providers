@@ -394,7 +394,7 @@
     }
   ],
   "dependencies": {
-    "@enconvo/api": "^0.1.161",
+    "@enconvo/api": "link:/Users/ysnows/Documents/Project/enconvo.nodejs/enconvo_api",
     "@google-cloud/text-to-speech": "^5.6.0",
     "axios": "^1.7.9",
     "file-system-cache": "^3.0.0",

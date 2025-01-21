@@ -11,9 +11,9 @@ export default function main(options: TTSProvider.TTSOptions) {
 
 export class MicrosoftTTSProvider extends TTSProvider {
 
-    protected async _speak({ text, audioFilePath }: { text: string; audioFilePath: string }): Promise<TTSProvider.TTSItem> {
+    protected async _toFile({ text, audioFilePath, speed }: TTSProvider._ToFileTTSParams): Promise<TTSProvider.TTSItem> {
 
-        await this.ttsSpeak(text, audioFilePath)
+        await this.ttsToFile(text, audioFilePath, speed)
         return {
             path: audioFilePath,
             text: text
@@ -21,7 +21,7 @@ export class MicrosoftTTSProvider extends TTSProvider {
     }
 
 
-    ttsSpeak(text: string, audioFilePath: string) {
+    ttsToFile(text: string, audioFilePath: string, speed?: number) {
         return new Promise((resolve, reject) => {
             // This example requires environment variables named "SPEECH_KEY" and "SPEECH_REGION"
             const speechConfig = SpeechConfig.fromSubscription(this.options.resource_key, this.options.region.value);
@@ -35,7 +35,7 @@ export class MicrosoftTTSProvider extends TTSProvider {
             // Create the speech synthesizer.
             var synthesizer = new SpeechSynthesizer(speechConfig, audioConfig);
 
-            const ssml = _SSMLTemplate(text, this.options.voice.value, { rate: this.options.speed?.value })
+            const ssml = _SSMLTemplate(text, this.options.voice.value, { rate: speed || this.options.speed?.value })
 
             synthesizer.speakSsmlAsync(ssml,
                 function (result: any) {

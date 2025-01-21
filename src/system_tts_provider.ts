@@ -10,7 +10,7 @@ export default function main(options: TTSProvider.TTSOptions) {
 
 export class SystemTTSProvider extends TTSProvider {
 
-    protected async _speak({ text, audioFilePath }: { text: string; audioFilePath: string }): Promise<TTSProvider.TTSItem> {
+    protected async _toFile({ text, audioFilePath }: TTSProvider._ToFileTTSParams): Promise<TTSProvider.TTSItem> {
 
         console.log("speak", audioFilePath)
 

@@ -15,9 +15,9 @@ export class EnconvoMicrosoftTTSProvider extends TTSProvider {
 
 
 
-    protected async _speak({ text, audioFilePath }: { text: string; audioFilePath: string }): Promise<TTSProvider.TTSItem> {
+    protected async _toFile({ text, audioFilePath, speed }: TTSProvider._ToFileTTSParams): Promise<TTSProvider.TTSItem> {
 
-        await this.ttsSpeak(text, audioFilePath)
+        await this.ttsToFile(text, audioFilePath, speed)
         return {
             path: audioFilePath,
             text: text
@@ -25,12 +25,11 @@ export class EnconvoMicrosoftTTSProvider extends TTSProvider {
     }
 
 
-    ttsSpeak(text: string, audioFilePath: string) {
+    ttsToFile(text: string, audioFilePath: string, speed?: number) {
         return new Promise(async (resolve, reject) => {
 
             try {
                 const { token, region } = await this.getToken()
-                console.log("azure token", token, "region", region)
 
                 const speechConfig = SpeechConfig.fromAuthorizationToken(token, region);
                 const audioConfig = AudioConfig.fromAudioFileOutput(audioFilePath);
@@ -44,7 +43,7 @@ export class EnconvoMicrosoftTTSProvider extends TTSProvider {
                 // Create the speech synthesizer.
                 var synthesizer = new SpeechSynthesizer(speechConfig, audioConfig);
 
-                const ssml = _SSMLTemplate(text, this.options.voice.value, { rate: this.options.speed?.value })
+                const ssml = _SSMLTemplate(text, this.options.voice.value, { rate: speed || this.options.speed?.value })
 
 
                 synthesizer.speakSsmlAsync(ssml,

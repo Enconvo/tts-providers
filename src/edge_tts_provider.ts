@@ -7,13 +7,12 @@ export default function main(options: TTSProvider.TTSOptions) {
 
 export class EdgeTTSProvider extends TTSProvider {
 
-    protected async _speak({ text, audioFilePath }: { text: string; audioFilePath: string }): Promise<TTSProvider.TTSItem> {
+    protected async _toFile({ text, audioFilePath, speed }: TTSProvider._ToFileTTSParams): Promise<TTSProvider.TTSItem> {
 
         try {
-
             const tts = new MsEdgeTTS();
             await tts.setMetadata(this.options.voice.value, OUTPUT_FORMAT.AUDIO_24KHZ_48KBITRATE_MONO_MP3);
-            await tts.toFile(audioFilePath, text, { rate: this.options.speed?.value });
+            await tts.toFile(audioFilePath, text, { rate: speed || this.options.speed?.value });
 
             return {
                 path: audioFilePath,
