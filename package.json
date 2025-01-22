@@ -267,6 +267,274 @@
       ]
     },
     {
+      "name": "hailuo_tts_provider",
+      "title": "Hailuo TTS",
+      "description": "Hailuo TTS Provider that allows you to use [Hailuo(zh)](https://platform.minimaxi.com/document/T2A%20V2?) [Hailuo(en)](https://intl.minimaxi.com/document/T2A%20V2) service",
+      "icon": "hailuo.png",
+      "mode": "provider",
+      "preferences": [
+        {
+          "name": "apiKey",
+          "description": "Hailuo api key",
+          "type": "password",
+          "required": false,
+          "title": "Hailuo Api Key",
+          "default": "",
+          "defaultProxy": "KEY_HAILUO_APIKEY",
+          "placeholder": "Hailuo Api Key"
+        },
+        {
+          "name": "groupId",
+          "description": "Hailuo group id",
+          "type": "textfield",
+          "required": false,
+          "title": "Hailuo Group Id",
+          "default": "",
+          "defaultProxy": "KEY_HAILUO_GROUPID",
+          "placeholder": "Hailuo Group Id"
+        },
+        {
+          "name": "modelName",
+          "description": "The model to TTS.",
+          "type": "dropdown",
+          "required": false,
+          "title": "Model Name",
+          "default": "speech-01-turbo",
+          "data": [
+            {
+              "title": "speech-01-turbo",
+              "value": "speech-01-turbo"
+            },
+            {
+              "title": "speech-01-240228",
+              "value": "speech-01-240228"
+            },
+            {
+              "title": "speech-01-turbo-240228",
+              "value": "speech-01-turbo-240228"
+            },
+            {
+              "title": "speech-01-hd",
+              "value": "speech-01-hd"
+            }
+          ]
+        },
+        {
+          "name": "voice",
+          "description": "The voice to TTS.",
+          "type": "dropdown", 
+          "required": false,
+          "title": "Voice",
+          "default": "male-qn-qingse",
+          "data": [
+            {
+              "title": "青涩青年音色",
+              "value": "male-qn-qingse"
+            },
+            {
+              "title": "精英青年音色",
+              "value": "male-qn-jingying"
+            },
+            {
+              "title": "霸道青年音色",
+              "value": "male-qn-badao"
+            },
+            {
+              "title": "青年大学生音色",
+              "value": "male-qn-daxuesheng"
+            },
+            {
+              "title": "少女音色",
+              "value": "female-shaonv"
+            },
+            {
+              "title": "御姐音色",
+              "value": "female-yujie"
+            },
+            {
+              "title": "成熟女性音色",
+              "value": "female-chengshu"
+            },
+            {
+              "title": "甜美女性音色",
+              "value": "female-tianmei"
+            },
+            {
+              "title": "男性主持人",
+              "value": "presenter_male"
+            },
+            {
+              "title": "女性主持人",
+              "value": "presenter_female"
+            },
+            {
+              "title": "男性有声书1",
+              "value": "audiobook_male_1"
+            },
+            {
+              "title": "男性有声书2",
+              "value": "audiobook_male_2"
+            },
+            {
+              "title": "女性有声书1",
+              "value": "audiobook_female_1"
+            },
+            {
+              "title": "女性有声书2",
+              "value": "audiobook_female_2"
+            },
+            {
+              "title": "青涩青年音色-beta",
+              "value": "male-qn-qingse-jingpin"
+            },
+            {
+              "title": "精英青年音色-beta",
+              "value": "male-qn-jingying-jingpin"
+            },
+            {
+              "title": "霸道青年音色-beta",
+              "value": "male-qn-badao-jingpin"
+            },
+            {
+              "title": "青年大学生音色-beta",
+              "value": "male-qn-daxuesheng-jingpin"
+            },
+            {
+              "title": "少女音色-beta",
+              "value": "female-shaonv-jingpin"
+            },
+            {
+              "title": "御姐音色-beta",
+              "value": "female-yujie-jingpin"
+            },
+            {
+              "title": "成熟女性音色-beta",
+              "value": "female-chengshu-jingpin"
+            },
+            {
+              "title": "甜美女性音色-beta",
+              "value": "female-tianmei-jingpin"
+            },
+            {
+              "title": "聪明男童",
+              "value": "clever_boy"
+            },
+            {
+              "title": "可爱男童",
+              "value": "cute_boy"
+            },
+            {
+              "title": "萌萌女童",
+              "value": "lovely_girl"
+            },
+            {
+              "title": "卡通猪小琪",
+              "value": "cartoon_pig"
+            },
+            {
+              "title": "病娇弟弟",
+              "value": "bingjiao_didi"
+            },
+            {
+              "title": "俊朗男友",
+              "value": "junlang_nanyou"
+            },
+            {
+              "title": "纯真学弟",
+              "value": "chunzhen_xuedi"
+            },
+            {
+              "title": "冷淡学长",
+              "value": "lengdan_xiongzhang"
+            },
+            {
+              "title": "霸道少爷",
+              "value": "badao_shaoye"
+            },
+            {
+              "title": "甜心小玲",
+              "value": "tianxin_xiaoling"
+            },
+            {
+              "title": "俏皮萌妹",
+              "value": "qiaopi_mengmei"
+            },
+            {
+              "title": "妩媚御姐",
+              "value": "wumei_yujie"
+            },
+            {
+              "title": "嗲嗲学妹",
+              "value": "diadia_xuemei"
+            },
+            {
+              "title": "淡雅学姐",
+              "value": "danya_xuejie"
+            },
+            {
+              "title": "Santa Claus",
+              "value": "Santa_Claus"
+            },
+            {
+              "title": "Grinch",
+              "value": "Grinch"
+            },
+            {
+              "title": "Rudolph",
+              "value": "Rudolph"
+            },
+            {
+              "title": "Arnold",
+              "value": "Arnold"
+            },
+            {
+              "title": "Charming Santa",
+              "value": "Charming_Santa"
+            },
+            {
+              "title": "Charming Lady",
+              "value": "Charming_Lady"
+            },
+            {
+              "title": "Sweet Girl",
+              "value": "Sweet_Girl"
+            },
+            {
+              "title": "Cute Elf",
+              "value": "Cute_Elf"
+            },
+            {
+              "title": "Attractive Girl",
+              "value": "Attractive_Girl"
+            },
+            {
+              "title": "Serene Woman",
+              "value": "Serene_Woman"
+            }
+          ]
+        },
+        {
+          "name": "speed",
+          "title": "Speech Speed",
+          "description": "The speed to TTS.",
+          "type": "dropdown",
+          "required": false,
+          "dataProxy": "tts_providers|voice_speed_list",
+          "default": 1.2
+        },
+        {
+          "name": "baseUrl",
+          "description": "Hailuo api base url",
+          "type": "textfield",
+          "required": false,
+          "title": "Hailuo Api Base Url",
+          "default": "https://api.minimax.chat/v1",
+          "defaultProxy": "KEY_HAILUO_BASEURL",
+          "placeholder": "https://api.minimax.chat/v1"
+        }
+      ]
+    },
+    {
       "name": "system_tts_provider",
       "title": "System TTS",
       "description": "System TTS Provider that allows you to use `say` command on macos",
@@ -343,10 +611,10 @@
       "preferences": [
         {
           "name": "api_key",
-          "description": "Api Key",
+          "description": "ElevenLabs api key",
           "type": "password",
           "required": false,
-          "title": "Api Key",
+          "title": "ElevenLabs Api Key",
           "default": "",
           "defaultProxy": "tts_providers|elevenlabs_tts_provider",
           "placeholder": "ElevenLabs Api Key"
@@ -373,10 +641,10 @@
       "preferences": [
         {
           "name": "api_key",
-          "description": "Api Key",
+          "description": "ElevenLabs api key",
           "type": "password",
           "required": false,
-          "title": "Api Key",
+          "title": "ElevenLabs Api Key",
           "default": "",
           "defaultProxy": "tts_providers|elevenlabs_tts_provider",
           "placeholder": "ElevenLabs Api Key"
