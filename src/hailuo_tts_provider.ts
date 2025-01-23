@@ -37,28 +37,27 @@ export class HailuoTTSProvider extends TTSProvider {
         // Construct API URL with group ID
         const ttsUrl = `${options.baseUrl}/t2a_v2?GroupId=${options.groupId}`;
 
-        try {
-            // Make API request
-            const response = await axios.post(ttsUrl, data, {
-                headers: {
-                    'Authorization': `Bearer ${options.apiKey}`,
-                    'Content-Type': 'application/json'
-                }
-            });
-
-            // Convert hex audio data to buffer
-            const audioHex = response.data.data.audio;
-            const buffer = Buffer.from(audioHex, 'hex');
-
-            // Write audio file and return result
-            await writeFileAsync(audioFilePath, buffer);
-            return {
-                path: audioFilePath,
-                text: text
+        // Make API request
+        const response = await axios.post(ttsUrl, data, {
+            headers: {
+                'Authorization': `Bearer ${options.apiKey}`,
+                'Content-Type': 'application/json'
             }
-        } catch (error) {
-            console.error("Error making API request:", error);
-            throw error;
+        });
+
+        // Convert hex audio data to buffer
+        const audioHex = response.data.data?.audio;
+        if (!audioHex) {
+            console.log("response", JSON.stringify(response.data, null, 2))
+            throw new Error("No audio data found in response");
+        }
+        const buffer = Buffer.from(audioHex, 'hex');
+
+        // Write audio file and return result
+        await writeFileAsync(audioFilePath, buffer);
+        return {
+            path: audioFilePath,
+            text: text
         }
     }
 }
