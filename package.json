@@ -1,7 +1,7 @@
 {
   "$schema": "https://enconvo.com/schemas/extension.json",
   "name": "tts_providers",
-  "version": "0.0.101",
+  "version": "0.0.102",
   "description": "Text to Speech Providers",
   "title": "TTS Providers",
   "icon": "icon.png",
@@ -71,6 +71,7 @@
       "title": "edge_voices",
       "description": "get edge_voices list",
       "icon": "icon.png",
+      "commandType": "function_command",
       "showInCommandList": false,
       "mode": "no-view"
     },
@@ -306,12 +307,148 @@
               "value": "speech-01-turbo"
             },
             {
-              "title": "speech-01-240228",
-              "value": "speech-01-240228"
+              "title": "speech-01-hd",
+              "value": "speech-01-hd"
+            }
+          ]
+        },
+        {
+          "name": "voice",
+          "description": "The voice to TTS.",
+          "type": "dropdown", 
+          "required": false,
+          "title": "Voice",
+          "default": "Wise_Woman",
+          "data": [
+            {
+              "title": "Wise Woman",
+              "value": "Wise_Woman"
             },
             {
-              "title": "speech-01-turbo-240228",
-              "value": "speech-01-turbo-240228"
+              "title": "Friendly Person",
+              "value": "Friendly_Person"
+            },
+            {
+              "title": "Inspirational Girl",
+              "value": "Inspirational_girl"
+            },
+            {
+              "title": "Deep Voice Man",
+              "value": "Deep_Voice_Man"
+            },
+            {
+              "title": "Calm Woman",
+              "value": "Calm_Woman"
+            },
+            {
+              "title": "Casual Guy",
+              "value": "Casual_Guy"
+            },
+            {
+              "title": "Lively Girl",
+              "value": "Lively_Girl"
+            },
+            {
+              "title": "Patient Man",
+              "value": "Patient_Man"
+            },
+            {
+              "title": "Young Knight",
+              "value": "Young_Knight"
+            },
+            {
+              "title": "Determined Man",
+              "value": "Determined_Man"
+            },
+            {
+              "title": "Lovely Girl",
+              "value": "Lovely_Girl"
+            },
+            {
+              "title": "Decent Boy",
+              "value": "Decent_Boy"
+            },
+            {
+              "title": "Imposing Manner",
+              "value": "Imposing_Manner"
+            },
+            {
+              "title": "Elegant Man",
+              "value": "Elegant_Man"
+            },
+            {
+              "title": "Abbess",
+              "value": "Abbess"
+            },
+            {
+              "title": "Sweet Girl 2",
+              "value": "Sweet_Girl_2"
+            },
+            {
+              "title": "Exuberant Girl",
+              "value": "Exuberant_Girl"
+            }
+          ]
+        },
+        {
+          "name": "speed",
+          "title": "Speech Speed",
+          "description": "The speed to TTS.",
+          "type": "dropdown",
+          "required": false,
+          "dataProxy": "tts_providers|voice_speed_list",
+          "default": 1.2
+        },
+        {
+          "name": "baseUrl",
+          "description": "Hailuo api base url",
+          "type": "textfield",
+          "required": false,
+          "title": "Hailuo Api Base Url",
+          "default": "https://api.minimaxi.chat/v1",
+          "defaultProxy": "KEY_HAILUO_BASEURL",
+          "placeholder": "https://api.minimaxi.chat/v1"
+        }
+      ]
+    },
+    {
+      "name": "hailuo_zh_tts_provider",
+      "title": "Hailuo TTS (Chinese)",
+      "description": "Hailuo TTS Provider that allows you to use [Hailuo(zh)](https://platform.minimaxi.com/document/T2A%20V2?) [Hailuo(en)](https://intl.minimaxi.com/document/T2A%20V2) service",
+      "icon": "hailuo.png",
+      "mode": "provider",
+      "preferences": [
+        {
+          "name": "apiKey",
+          "description": "Hailuo api key",
+          "type": "password",
+          "required": false,
+          "title": "Hailuo Api Key",
+          "default": "",
+          "defaultProxy": "KEY_HAILUO_ZH_APIKEY",
+          "placeholder": "Hailuo Api Key"
+        },
+        {
+          "name": "groupId",
+          "description": "Hailuo group id",
+          "type": "textfield",
+          "required": false,
+          "title": "Hailuo Group Id",
+          "default": "",
+          "defaultProxy": "KEY_HAILUO_ZH_GROUPID",
+          "placeholder": "Hailuo Group Id"
+        },
+        {
+          "name": "modelName",
+          "description": "The model to TTS.",
+          "type": "dropdown",
+          "required": false,
+          "title": "Model Name",
+          "default": "speech-01-turbo",
+          "data": [
+            {
+              "title": "speech-01-turbo",
+              "value": "speech-01-turbo"
             },
             {
               "title": "speech-01-hd",
@@ -322,7 +459,7 @@
         {
           "name": "voice",
           "description": "The voice to TTS.",
-          "type": "dropdown", 
+          "type": "dropdown",
           "required": false,
           "title": "Voice",
           "default": "male-qn-qingse",
