@@ -32,7 +32,7 @@ async function fetchModels(url: string, api_key: string, type: string): Promise<
         })
 
         if (!resp.ok) {
-            throw new Error(`API request failed with status ${resp.status}`)
+            throw new Error(`API request failed with status ${await resp.text()}`)
         }
 
         const data = await resp.json()
