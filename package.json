@@ -1,7 +1,7 @@
 {
   "$schema": "https://enconvo.com/schemas/extension.json",
   "name": "tts_providers",
-  "version": "0.0.104",
+  "version": "0.0.105",
   "description": "Text to Speech Providers",
   "title": "TTS Providers",
   "icon": "icon.png",
@@ -139,6 +139,91 @@
       "icon": "icon.png",
       "showInCommandList": false,
       "mode": "no-view"
+    },
+    {
+      "name": "elevenlabs_tts_provider",
+      "title": "Eleven Labs TTS",
+      "description": "Eleven Labs TTS Provider that allows you to use [Eleven Labs's online text-to-speech](https://elevenlabs.io/api) service",
+      "icon": "elevenlabs.png",
+      "mode": "provider",
+      "preferences": [
+        {
+          "name": "apiKey",
+          "description": "Eleven Labs api key",
+          "type": "password",
+          "required": false,
+          "title": "Eleven Labs Api Key",
+          "default": "",
+          "defaultProxy": "KEY_ELEVENLABS_APIKEY",
+          "placeholder": "Eleven Labs Api Key"
+        },
+        {
+          "name": "modelName",
+          "description": "The model to TTS.",
+          "type": "dropdown",
+          "required": false,
+          "title": "Model Name",
+          "default": "eleven_multilingual_v2",
+          "dataCustomTitle": "Add Custom Model",
+          "data": [
+            {
+              "title": "Eleven Multilingual v2",
+              "value": "eleven_multilingual_v2"
+            },
+            {
+              "title": "Eleven Flash v2.5",
+              "value": "eleven_flash_v2_5"
+            },
+            {
+              "title": "Eleven Turbo v2.5",
+              "value": "eleven_turbo_v2_5"
+            },
+            {
+              "title": "Eleven Turbo v2",
+              "value": "eleven_turbo_v2"
+            },
+            {
+              "title": "Eleven Flash v2",
+              "value": "eleven_flash_v2"
+            },
+            {
+              "title": "Eleven Multilingual v2",
+              "value": "eleven_multilingual_sts_v2"
+            },
+            {
+              "title": "Eleven Multilingual v1",
+              "value": "eleven_multilingual_v1"
+            },
+            {
+              "title": "Eleven English v1",
+              "value": "eleven_monolingual_v1"
+            },
+            {
+              "title": "Eleven English v2",
+              "value": "eleven_english_sts_v2"
+            }
+          ]
+        },
+        {
+          "name": "voice",
+          "description": "The voice to TTS.",
+          "type": "dropdown",
+          "required": false,
+          "title": "Voice",
+          "default": "9BWtsMINqrJLrRacOk9x",
+          "dataCustomTitle": "Add Custom Voice",
+          "dataProxy": "tts_providers|elevenlabs_voices"
+        },
+        {
+          "name": "speed",
+          "title": "Speech Speed",
+          "description": "The speed to TTS.",
+          "type": "dropdown",
+          "required": false,
+          "dataProxy": "tts_providers|voice_speed_list",
+          "default": "1.2"
+        }
+      ]
     },
     {
       "name": "openai_tts_provider",
@@ -317,7 +402,7 @@
         {
           "name": "voice",
           "description": "The voice to TTS.",
-          "type": "dropdown", 
+          "type": "dropdown",
           "required": false,
           "title": "Voice",
           "default": "Wise_Woman",
@@ -742,7 +827,7 @@
     },
     {
       "name": "elevenlabs_voices",
-      "title": "elevenlabs_voices",
+      "title": "ElevenLabs Voices",
       "description": "get elevenlabs_voices list",
       "icon": "icon.png",
       "commandType": "function_command",
@@ -750,7 +835,7 @@
       "mode": "no-view",
       "preferences": [
         {
-          "name": "api_key",
+          "name": "apiKey",
           "description": "ElevenLabs api key",
           "type": "password",
           "required": false,
@@ -758,15 +843,6 @@
           "default": "",
           "defaultProxy": "tts_providers|elevenlabs_tts_provider",
           "placeholder": "ElevenLabs Api Key"
-        },
-        {
-          "name": "baseUrl",
-          "description": "ElevenLabs api base url",
-          "type": "textfield",
-          "required": false,
-          "title": "ElevenLabs Api Base Url",
-          "default": "https://api.elevenlabs.io/v1",
-          "placeholder": "ElevenLabs Api Base Url"
         }
       ]
     },
@@ -780,7 +856,7 @@
       "mode": "no-view",
       "preferences": [
         {
-          "name": "api_key",
+          "name": "apiKey",
           "description": "ElevenLabs api key",
           "type": "password",
           "required": false,
@@ -788,15 +864,6 @@
           "default": "",
           "defaultProxy": "tts_providers|elevenlabs_tts_provider",
           "placeholder": "ElevenLabs Api Key"
-        },
-        {
-          "name": "baseUrl",
-          "description": "ElevenLabs api base url",
-          "type": "textfield",
-          "required": false,
-          "title": "ElevenLabs Api Base Url",
-          "default": "https://api.elevenlabs.io/v1",
-          "placeholder": "ElevenLabs Api Base Url"
         }
       ]
     }
@@ -804,7 +871,9 @@
   "dependencies": {
     "@enconvo/api": "link:/Users/ysnows/Documents/Project/enconvo.nodejs/enconvo_api",
     "@google-cloud/text-to-speech": "^5.6.0",
+    "@speechify/api-sdk": "^2.4.1",
     "axios": "^1.7.9",
+    "elevenlabs": "^1.52.0",
     "file-system-cache": "^3.0.0",
     "microsoft-cognitiveservices-speech-sdk": "^1.41.0",
     "msedge-tts": "workspace:*",

@@ -1,58 +1,71 @@
-import { environment } from "@enconvo/api";
-import fs from 'fs'
+import { DropdownListCache } from "@enconvo/api"
 
 
-async function fetch_model(apiKey: string) {
 
-    let models: any[] = []
+/**
+ * Fetches models from the API and transforms them into ModelOutput format
+ * @param url - API endpoint URL
+ * @param api_key - API authentication key
+ * @returns Promise<ModelOutput[]> - Array of processed model data
+ */
+async function fetchModels(url: string, api_key: string, type: string): Promise<DropdownListCache.ModelOutput[]> {
+    // Initialize empty array to store models
+    let models: DropdownListCache.ModelOutput[] = []
+
     try {
-        const resp = await fetch('https://api.elevenlabs.io/v1/voices', {
+        // Determine which API endpoint to use based on the type
+        const endpoint = 'https://api.elevenlabs.io/v1/voices'
+
+        // Make API request to ElevenLabs API
+        const resp = await fetch(endpoint, {
             headers: {
-                'xi-api-key': `${apiKey}`,
+                // Use ElevenLabs specific header format
+                'xi-api-key': `${api_key}`,
                 'Content-Type': 'application/json'
             }
         })
-        let json = await resp.json()
-        return json['voices'].map((model: any) => {
+
+        // Check if response is not successful
+        if (!resp.ok) {
+            throw new Error(`API request failed with status ${resp.status}`)
+        }
+
+        // Parse JSON response
+        const data = await resp.json()
+
+        // Process different response formats based on the endpoint type
+        // Map the ElevenLabs voices format to our required format
+        models = data['voices'].map((model: any) => {
+            // Create a detailed title with voice characteristics
             return {
-                title: `${model['name']} - ${model.labels.gender} - ${model.labels.accent} - ${model.labels.description}- ${model.labels.age}- ${model.labels['use case']}`,
+                title: `${model['name']} - ${model.labels.gender} - ${model.labels.accent} - ${model.labels.description}- ${model.labels.age}- ${model.labels['use_case']}`,
                 value: model['voice_id']
             }
         })
 
-    } catch (err) {
-        console.log(err)
-    }
 
-    return models
+        // Return the processed models
+        return models
+
+    } catch (error) {
+        // Log any errors that occur during fetching
+        console.error('Error fetching ElevenLabs data:', error)
+        // Return empty array if there's an error
+        return []
+    }
 }
 
-export default async function main(req: Request) {
+/**
+ * Main handler function for the API endpoint
+ * @param req - Request object containing options
+ * @returns Promise<string> - JSON string of model data
+ */
+export default async function main(req: Request): Promise<string> {
     const options = await req.json()
-    const { text, api_key } = options
+    options.api_key = options.apiKey
 
-    const modelCacheDir = environment.assetsPath + `/models`
-    if (!fs.existsSync(modelCacheDir)) {
-        fs.mkdirSync(modelCacheDir, { recursive: true })
-    }
-    const modelCachePath = `${modelCacheDir}/${environment.commandName}.json`
+    const modelCache = new DropdownListCache(fetchModels)
 
-    fs.existsSync(modelCachePath) || fs.writeFileSync(modelCachePath, '[]')
-
-    const modelContent = fs.readFileSync(modelCachePath, 'utf8')
-    let models = JSON.parse(modelContent)
-
-    try {
-        if (text === 'refresh' || models.length === 0) {
-            models = await fetch_model(api_key)
-            fs.writeFileSync(modelCachePath, JSON.stringify(models))
-        }
-    } catch (err) {
-        console.log(err)
-    }
-
+    const models = await modelCache.getModelsCache(options)
     return JSON.stringify(models)
 }
-
-
-

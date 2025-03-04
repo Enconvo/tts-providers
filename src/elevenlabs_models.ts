@@ -1,58 +1,69 @@
-import { environment } from "@enconvo/api";
-import fs from 'fs'
+import { DropdownListCache } from "@enconvo/api"
 
 
-async function fetch_model(apiKey: string) {
 
-    let models: any[] = []
+/**
+ * Fetches models from the API and transforms them into ModelOutput format
+ * @param url - API endpoint URL
+ * @param api_key - API authentication key
+ * @returns Promise<ModelOutput[]> - Array of processed model data
+ */
+async function fetchModels(url: string, api_key: string, type: string): Promise<DropdownListCache.ModelOutput[]> {
+    // Initialize empty array to store models
+    let models: DropdownListCache.ModelOutput[] = []
+
     try {
+        // Make API request to ElevenLabs API
         const resp = await fetch('https://api.elevenlabs.io/v1/models', {
             headers: {
-                'xi-api-key': `${apiKey}`,
+                // Use ElevenLabs specific header format
+                'xi-api-key': `${api_key}`,
                 'Content-Type': 'application/json'
             }
         })
-        let json = await resp.json()
-        return json.map((model: any) => {
+
+        // Check if response is not successful
+        if (!resp.ok) {
+            throw new Error(`API request failed with status ${resp.status}`)
+        }
+
+        // Parse JSON response
+        const data = await resp.json()
+
+        // Map the ElevenLabs model format to our required format
+        models = data.map((model: any) => {
             return {
+                // Format title as model name
                 title: `${model['name']}`,
-                value: model['model_id']
+                // Use model_id as the value
+                value: model['model_id'],
             }
         })
 
-    } catch (err) {
-        console.log(err)
-    }
+        // Return the processed models
+        return models
 
-    return models
+    } catch (error) {
+        // Log any errors that occur during fetching
+        console.error('Error fetching ElevenLabs models:', error)
+        // Return empty array if there's an error
+        return []
+    }
 }
 
-export default async function main(req: Request) {
+/**
+ * Main handler function for the API endpoint
+ * @param req - Request object containing options
+ * @returns Promise<string> - JSON string of model data
+ */
+export default async function main(req: Request): Promise<string> {
     const options = await req.json()
-    const { text, api_key } = options
+    options.api_key = options.apiKey
 
-    const modelCacheDir = environment.assetsPath + `/models`
-    if (!fs.existsSync(modelCacheDir)) {
-        fs.mkdirSync(modelCacheDir, { recursive: true })
-    }
-    const modelCachePath = `${modelCacheDir}/${environment.commandName}.json`
+    const modelCache = new DropdownListCache(fetchModels)
 
-    fs.existsSync(modelCachePath) || fs.writeFileSync(modelCachePath, '[]')
-
-    const modelContent = fs.readFileSync(modelCachePath, 'utf8')
-    let models = JSON.parse(modelContent)
-
-    try {
-        if (text === 'refresh' || models.length === 0) {
-            models = await fetch_model(api_key)
-            fs.writeFileSync(modelCachePath, JSON.stringify(models))
-        }
-    } catch (err) {
-        console.log(err)
-    }
-
-    return JSON.stringify(models)
+    const models = await modelCache.getModelsCache(options)
+    const data = JSON.stringify(models)
+    console.log(data)
+    return data
 }
-
-
-

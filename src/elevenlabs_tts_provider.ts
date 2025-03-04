@@ -1,106 +1,79 @@
-
-import axios from "axios";
-import { writeFile } from "fs";
-import { promisify } from "util";
-
-/**
- * 
-     {
-      "name": "elevenlabs_tts_provider",
-      "title": "ElevenLabs TTS",
-      "description": "ElevenLabs TTS Provider that allows you to use OpenAI's online text-to-speech service",
-      "icon": "elevenlabs.png",
-      "mode": "llm",
-      "preferences": [
-        {
-          "name": "api_key",
-          "description": "Api Key",
-          "type": "password",
-          "required": false,
-          "title": "Api Key",
-          "default": "",
-          "placeholder": "ElevenLabs Api Key"
-        },
-        {
-          "name": "baseUrl",
-          "description": "ElevenLabs api base url",
-          "type": "textfield",
-          "required": false,
-          "title": "ElevenLabs Api Base Url",
-          "default": "https://api.elevenlabs.io/v1",
-          "placeholder": "ElevenLabs Api Base Url"
-        },
-        {
-          "name": "modelName",
-          "description": "The model to TTS.",
-          "type": "dropdown",
-          "required": false,
-          "title": "Model Name",
-          "default": "eleven_multilingual_v2",
-          "data": [
-            {
-              "title": "Eleven Multilingual v2",
-              "value": "eleven_multilingual_v2"
-            }
-          ],
-          "dataProxy": "tts_providers|elevenlabs_models"
-        },
-        {
-          "name": "voice",
-          "description": "The voice to TTS.",
-          "type": "dropdown",
-          "required": false,
-          "title": "Voice",
-          "default": "21m00Tcm4TlvDq8ikWAM",
-          "data": [
-            {
-              "title": "Rachel - female - american - calm- young- narration",
-              "value": "21m00Tcm4TlvDq8ikWAM"
-            }
-          ],
-          "dataProxy": "tts_providers|elevenlabs_voices"
-        }
-      ]
-    },
- */
+import { TTSProvider } from "@enconvo/api";
+import { ElevenLabsClient } from "elevenlabs";
+import { Readable } from "stream";
+import fs from "fs";
 export default function main(options: TTSProvider.TTSOptions) {
 
-    return new EventLabsTTSProvider({ options })
+    return new ElevenLabsTTSProvider({ options })
 }
 
-export class EventLabsTTSProvider extends TTSProvider {
+export class ElevenLabsTTSProvider extends TTSProvider {
 
-    protected async _speak({ text, audioFilePath }: { text: string; audioFilePath: string }): Promise<TTSProvider.TTSItem> {
-
-        const writeFileAsync = promisify(writeFile);
-
+    protected async _toFile({ text, audioFilePath, speed }: TTSProvider._ToFileTTSParams): Promise<TTSProvider.TTSItem> {
         const options = this.options
+        console.log("llll", options)
 
-        const data = {
-            "text": text,
-            "model_id": options.modelName.value,
-            "voice_settings": {
-                "stability": 0.5,
-                "similarity_boost": 0.5
-            }
-        }
+        const ELEVENLABS_API_KEY = options.apiKey; // Replace with your actual API key
 
-        const ttsUrl = `${options.baseUrl}/text-to-speech/${options.voice.value}`
-
-        const response = await axios.post(ttsUrl, data, {
-            headers: {
-                'xi-api-key': `${options.api_key}`,
-                'Content-Type': 'application/json'
-            },
-            responseType: 'arraybuffer'
+        const client = new ElevenLabsClient({ apiKey: ELEVENLABS_API_KEY });
+        const response = await client.textToSpeech.convert(options.voice.value, {
+            output_format: "mp3_44100_128",
+            text: text,
+            model_id: options.modelName.value
         });
 
-        const buffer = Buffer.from(response.data);
+        await this.saveStreamToFile(response, audioFilePath);
 
-        await writeFileAsync(audioFilePath, buffer);
+        // Create a buffer to store the audio data from the stream
+        // const chunks: Buffer[] = [];
+
+        // // Process the stream by collecting all chunks of data
+        // response.on('data', (chunk: Buffer) => {
+        //     chunks.push(chunk);
+        // });
+
+        // // Wait for the stream to finish and combine all chunks
+        // await new Promise<void>((resolve, reject) => {
+        //     response.on('end', () => resolve());
+        //     response.on('error', (err) => reject(err));
+        // });
+
+        // // Combine all chunks into a single buffer
+        // const buffer = Buffer.concat(chunks);
+
+        // // Write the buffer to the specified audio file path
+        // await writeFileAsync(audioFilePath, buffer);
+
+        // // Log success message
+        // console.log(`Audio file successfully saved to: ${audioFilePath}`);
+
         return {
             path: audioFilePath,
             text: text
         }
+    }
+
+    async saveStreamToFile(readableStream: Readable, outputPath: string) {
+        return new Promise((resolve, reject) => {
+            // Create a writable stream to the file
+            const fileStream = fs.createWriteStream(outputPath);
+
+            // Pipe the readable stream to the file
+            readableStream.pipe(fileStream);
+
+            // Handle events
+            fileStream.on('finish', () => {
+                resolve(outputPath);
+            });
+
+            fileStream.on('error', (error) => {
+                reject(error);
+            });
+
+            readableStream.on('error', (error) => {
+                fileStream.end();
+                reject(error);
+            });
+        });
     }
 }
