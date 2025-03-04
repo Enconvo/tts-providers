@@ -26,5 +26,5 @@
     "noEmit": true
   },
   "exclude": ["node_modules/", "dist/", "tests/"],
-  "include": ["./src", "../../examples/src/tts.ts", "src/openai_tts_provider.ts"]
+  "include": ["./src", "../../examples/src/tts.ts", "src/openai_tts_provider.ts", "src/speechify_voices.ts"]
 }

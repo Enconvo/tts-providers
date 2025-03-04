@@ -318,6 +318,67 @@
       ]
     },
     {
+      "name": "speechify_tts_provider",
+      "title": "Speechify TTS",
+      "description": "Speechify TTS Provider that allows you to use [Speechify's online text-to-speech](https://speechify.com/api) service",
+      "icon": "speechify.png",
+      "mode": "provider",
+      "preferences": [
+        {
+          "name": "apiKey",
+          "description": "Speechify api key",
+          "type": "password",
+          "required": false,
+          "title": "Speechify Api Key",
+          "default": "",
+          "defaultProxy": "KEY_SPEECHIFY_APIKEY",
+          "placeholder": "Speechify Api Key"
+        },
+        {
+          "name": "modelName",
+          "description": "The model to TTS.",
+          "type": "dropdown",
+          "required": false,
+          "title": "Model Name",
+          "default": "simba-english",
+          "dataCustomTitle": "Add Custom Model",
+          "data": [
+            {
+              "title": "Simba English",
+              "value": "simba-english"
+            },
+            {
+              "title": "Simba Multilingual",
+              "value": "simba-multilingual"
+            },
+            {
+              "title": "Simba Turbo",
+              "value": "simba-turbo"
+            }
+          ]
+        },
+        {
+          "name": "voice",
+          "description": "The voice to TTS.",
+          "type": "dropdown",
+          "required": false,
+          "title": "Voice",
+          "default": "george",
+          "dataCustomTitle": "Add Custom Voice",
+          "dataProxy": "tts_providers|speechify_voices"
+        },
+        {
+          "name": "speed",
+          "title": "Speech Speed",
+          "description": "The speed to TTS.",
+          "type": "dropdown",
+          "required": false,
+          "dataProxy": "tts_providers|voice_speed_list",
+          "default": "1.2"
+        }
+      ]
+    },
+    {
       "name": "google_tts_provider",
       "title": "Google TTS",
       "description": "Google TTS Provider that allows you to use [Google's online text-to-speech](https://cloud.google.com/text-to-speech/) service",
@@ -843,6 +904,27 @@
           "default": "",
           "defaultProxy": "tts_providers|elevenlabs_tts_provider",
           "placeholder": "ElevenLabs Api Key"
+        }
+      ]
+    },
+    {
+      "name": "speechify_voices",
+      "title": "Speechify Voices",
+      "description": "get speechify_voices list",
+      "icon": "icon.png",
+      "commandType": "function_command",
+      "showInCommandList": false,
+      "mode": "no-view",
+      "preferences": [
+        {
+          "name": "apiKey",
+          "description": "Speechify api key",
+          "type": "password",
+          "required": false,
+          "title": "Speechify Api Key",
+          "default": "",
+          "defaultProxy": "tts_providers|speechify_tts_provider",
+          "placeholder": "Speechify Api Key"
         }
       ]
     },
