@@ -13,10 +13,55 @@
   "type": "module",
   "commands": [
     {
-      "name": "edge_tts_provider",
-      "title": "Edge TTS",
-      "description": "Edge TTS Provider that allows you to use Microsoft Edge's online text-to-speech service",
-      "icon": "edge_tts.jpg",
+      "name": "enconvo_hailuo_tts_provider",
+      "title": "Hailuo TTS ( Enconvo Cloud Plan )",
+      "description": "Hailuo TTS Provider that allows you to use Hailuo's online text-to-speech service, provided by Enconvo Cloud Plan",
+      "icon": "hailuo.png",
+      "mode": "provider",
+      "preferences": [
+        {
+          "name": "modelName",
+          "description": "The model to TTS.",
+          "type": "dropdown",
+          "required": false,
+          "title": "Model Name",
+          "default": "speech-02-turbo",
+          "data": [
+            {
+              "title": "Speech-02-turbo (450 points per request)",
+              "value": "speech-02-turbo"
+            },
+            {
+              "title": "Speech-02-hd (100 points per request)",
+              "value": "speech-02-hd"
+            }
+          ]
+        },
+        {
+          "name": "voice",
+          "description": "The voice to TTS.",
+          "type": "dropdown",
+          "required": false,
+          "title": "Voice",
+          "default": "English_MaturePartner",
+          "dataProxy": "tts_providers|enconvo_hailuo_voices"
+        },
+        {
+          "name": "speed",
+          "title": "Speech Speed",
+          "description": "The speed to TTS.",
+          "type": "dropdown",
+          "required": false,
+          "dataProxy": "tts_providers|voice_speed_list",
+          "default": 1.2
+        }
+      ]
+    },
+    {
+      "name": "enconvo_mirosoft_tts_provider",
+      "title": "Microsoft TTS ( Enconvo Cloud Plan )",
+      "description": "Microsoft TTS Provider that allows you to use Microsoft Azure's online text-to-speech service, provided by Enconvo Cloud Plan",
+      "icon": "azure.png",
       "mode": "provider",
       "preferences": [
         {
@@ -25,7 +70,7 @@
           "description": "The voice to TTS.",
           "type": "dropdown",
           "required": false,
-          "dataProxy": "tts_providers|edge_voices",
+          "dataProxy": "tts_providers|azure_voices",
           "default": "en-US-EmmaMultilingualNeural"
         },
         {
@@ -40,10 +85,10 @@
       ]
     },
     {
-      "name": "enconvo_mirosoft_tts_provider",
-      "title": "Enconvo Cloud Plan( Microsoft TTS )",
-      "description": "Microsoft TTS Provider that allows you to use Microsoft Azure's online text-to-speech service, provided by Enconvo Cloud Plan",
-      "icon": "enconvo.png",
+      "name": "edge_tts_provider",
+      "title": "Edge TTS",
+      "description": "Edge TTS Provider that allows you to use Microsoft Edge's online text-to-speech service",
+      "icon": "edge_tts.jpg",
       "mode": "provider",
       "preferences": [
         {
@@ -52,7 +97,7 @@
           "description": "The voice to TTS.",
           "type": "dropdown",
           "required": false,
-          "dataProxy": "tts_providers|azure_voices",
+          "dataProxy": "tts_providers|edge_voices",
           "default": "en-US-EmmaMultilingualNeural"
         },
         {
@@ -475,7 +520,7 @@
           "required": false,
           "title": "Voice",
           "default": "English_MaturePartner",
-          "dataProxy": "tts_providers|minimax_voices"
+          "dataProxy": "tts_providers|hailuo_voices"
         },
         {
           "name": "speed",
@@ -565,9 +610,9 @@
       "mode": "no-view"
     },
     {
-      "name": "minimax_voices",
-      "title": "Minimax Voices",
-      "description": "get minimax voices list",
+      "name": "hailuo_voices",
+      "title": "Hailuo Voices",
+      "description": "get hailuo voices list",
       "icon": "icon.png",
       "commandType": "function_command",
       "showInCommandList": false,
@@ -580,10 +625,19 @@
           "required": false,
           "title": "Hailuo Api Key",
           "default": "",
-          "defaultProxy": "tts_providers|hailuo_zh_tts_provider",
-          "placeholder": "Minimax Api Key"
+          "defaultProxy": "tts_providers|hailuo_tts_provider",
+          "placeholder": "Hailuo Api Key"
         }
       ]
+    },
+    {
+      "name": "enconvo_hailuo_voices",
+      "title": "Enconvo Hailuo Voices",
+      "description": "get enconvo hailuo voices list",
+      "icon": "icon.png",
+      "commandType": "function_command",
+      "showInCommandList": false,
+      "mode": "no-view"
     },
     {
       "name": "elevenlabs_voices",
