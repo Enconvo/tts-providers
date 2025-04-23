@@ -43,7 +43,7 @@ async function fetchModels(url: string, api_key: string, type: string): Promise<
         const system_voices = data.system_voice.map((model: any) => {
             // Create a detailed title with voice characteristics
             return {
-                title: model.voice_name,
+                title: `${model.voice_name} (${model.voice_id})`,
                 value: model['voice_id']
             }
         })
@@ -51,7 +51,7 @@ async function fetchModels(url: string, api_key: string, type: string): Promise<
         const voice_cloning = data.voice_cloning.map((model: any) => {
             // Create a detailed title with voice characteristics
             return {
-                title: model.voice_name,
+                title: `${model.voice_name} (${model.voice_id})`,
                 value: model['voice_id']
             }
         })

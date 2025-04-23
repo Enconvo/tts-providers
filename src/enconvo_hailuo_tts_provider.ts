@@ -56,14 +56,14 @@ export class HailuoTTSProvider extends TTSProvider {
 
         // Convert hex audio data to buffer
         const audioHex = response.data.data?.audio;
+        // console.log("text", text)
         if (!audioHex) {
             console.log("response", JSON.stringify(response.data, null, 2))
-            throw new Error("No audio data found in response");
+            throw new Error("No audio data found in response: " + text);
         }
         const buffer = Buffer.from(audioHex, 'hex');
 
         // Write audio file and return result
-        console.log("audioFilePath", audioFilePath)
         await writeFileAsync(audioFilePath, buffer);
         return {
             path: audioFilePath,
