@@ -1,3 +1,5 @@
+import { DropdownListCache } from "@enconvo/api"
+
 async function fetch_model() {
 
     // 0.25x - 4x
@@ -311,11 +313,14 @@ async function fetch_model() {
     return models
 }
 
+
 export default async function main(req: Request) {
 
-    let models = await fetch_model()
+    const modelCache = new DropdownListCache(fetch_model)
 
-    return JSON.stringify(models)
+    const models = await modelCache.getModelsCache({})
+
+    return Response.json(models)
 }
 
 

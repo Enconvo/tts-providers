@@ -1,7 +1,7 @@
 {
   "$schema": "https://enconvo.com/schemas/extension.json",
   "name": "tts_providers",
-  "version": "0.0.109",
+  "version": "0.0.110",
   "description": "Text to Speech Providers",
   "title": "TTS Providers",
   "icon": "icon.png",
@@ -28,7 +28,7 @@
           "default": "speech-02-turbo",
           "data": [
             {
-              "title": "Speech-02-turbo (2 points per character)",
+              "title": "Speech-02-turbo (Limited-time free offer)",
               "value": "speech-02-turbo"
             },
             {
