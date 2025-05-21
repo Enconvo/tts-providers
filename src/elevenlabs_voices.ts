@@ -38,7 +38,7 @@ async function fetchModels(url: string, api_key: string, type: string): Promise<
         models = data['voices'].map((model: any) => {
             // Create a detailed title with voice characteristics
             return {
-                title: `${model['name']} - ${model.labels.gender} - ${model.labels.accent} - ${model.labels.description}- ${model.labels.age}- ${model.labels['use_case']}`,
+                title: `${model['name']} - ${model.labels.gender || ''} - ${model.labels.accent || ''} - ${model.labels.description || ''} - ${model.labels.age || ''} - ${model.labels['use_case'] || ''}`,
                 value: model['voice_id']
             }
         })

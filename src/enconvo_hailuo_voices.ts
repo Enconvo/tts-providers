@@ -36,7 +36,6 @@ async function fetchModels(url: string, api_key: string, type: string): Promise<
 
         // Parse JSON response
         const data = await resp.json()
-
         // Process different response formats based on the endpoint type
         // Map the ElevenLabs voices format to our required format
         const system_voices = data.system_voice.map((model: any) => {

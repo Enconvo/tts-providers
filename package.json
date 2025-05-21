@@ -14,9 +14,9 @@
   "commands": [
     {
       "name": "enconvo_hailuo_tts_provider",
-      "title": "Hailuo TTS ( Enconvo Cloud Plan )",
-      "description": "Hailuo TTS Provider that allows you to use Hailuo's online text-to-speech service, provided by Enconvo Cloud Plan",
-      "icon": "hailuo.png",
+      "title": "MiniMax TTS ( Enconvo Cloud Plan )",
+      "description": "MiniMax TTS Provider that allows you to use MiniMax's online text-to-speech service, provided by Enconvo Cloud Plan",
+      "icon": "minimax.png",
       "mode": "provider",
       "preferences": [
         {
@@ -53,12 +53,12 @@
           "type": "dropdown",
           "required": false,
           "dataProxy": "tts_providers|voice_speed_list",
-          "default": 1.2
+          "default": "1.2"
         }
       ]
     },
     {
-      "name": "enconvo_mirosoft_tts_provider",
+      "name": "enconvo_microsoft_tts_provider",
       "title": "Microsoft TTS ( Enconvo Cloud Plan )",
       "description": "Microsoft TTS Provider that allows you to use Microsoft Azure's online text-to-speech service, provided by Enconvo Cloud Plan",
       "icon": "azure.png",
@@ -121,7 +121,7 @@
       "mode": "no-view"
     },
     {
-      "name": "mirosoft_tts_provider",
+      "name": "microsoft_tts_provider",
       "title": "Microsoft TTS",
       "description": "Microsoft TTS Provider that allows you to use [Microsoft Azure's online text-to-speech](https://learn.microsoft.com/en-us/azure/ai-services/speech-service/get-started-text-to-speech?tabs=macos%2Cterminal&pivots=programming-language-rest) service",
       "icon": "azure.png",
@@ -152,7 +152,7 @@
           "type": "dropdown",
           "required": true,
           "default": "eastus",
-          "defaultProxy": "KEY_AZURE_SPEECH_REGION",
+          "defaultProxy": "key_management|microsoft_speech",
           "dataProxy": "speech_recognize_providers|azure_speech_regions"
         },
         {
@@ -162,7 +162,7 @@
           "type": "password",
           "required": true,
           "default": "",
-          "defaultProxy": "KEY_AZURE_SPEECH",
+          "defaultProxy": "key_management|microsoft_speech",
           "placeholder": "********"
         }
       ]
@@ -199,7 +199,7 @@
           "required": false,
           "title": "Eleven Labs Api Key",
           "default": "",
-          "defaultProxy": "KEY_ELEVENLABS_APIKEY",
+          "defaultProxy": "key_management|elevenlabs",
           "placeholder": "Eleven Labs Api Key"
         },
         {
@@ -284,7 +284,7 @@
           "required": false,
           "title": "OpenAI Api Key",
           "default": "",
-          "defaultProxy": "KEY_OPENAI_APIKEY",
+          "defaultProxy": "key_management|open_ai",
           "placeholder": "OpenAI Api Key"
         },
         {
@@ -294,7 +294,7 @@
           "required": false,
           "title": "OpenAI Api Base Url",
           "default": "https://api.openai.com/v1",
-          "defaultProxy": "KEY_OPENAI_BASEURL",
+          "defaultProxy": "key_management|open_ai",
           "placeholder": "htts://api.openai.com/v1"
         },
         {
@@ -376,7 +376,7 @@
           "required": false,
           "title": "Speechify Api Key",
           "default": "",
-          "defaultProxy": "KEY_SPEECHIFY_APIKEY",
+          "defaultProxy": "key_management|speechify",
           "placeholder": "Speechify Api Key"
         },
         {
@@ -389,15 +389,19 @@
           "dataCustomTitle": "Add Custom Model",
           "data": [
             {
-              "title": "Simba English",
+              "title": "Simba Base", 
+              "value": "simba-base"
+            },
+            {
+              "title": "Simba English", 
               "value": "simba-english"
             },
             {
-              "title": "Simba Multilingual",
+              "title": "Simba Multilingual", 
               "value": "simba-multilingual"
             },
             {
-              "title": "Simba Turbo",
+              "title": "Simba Turbo", 
               "value": "simba-turbo"
             }
           ]
@@ -437,7 +441,7 @@
           "required": false,
           "title": "Google Api Key",
           "default": "",
-          "defaultProxy": "KEY_GOOGLE_APIKEY",
+          "defaultProxy": "key_management|google",
           "placeholder": "AI*****"
         },
         {
@@ -461,31 +465,31 @@
       ]
     },
     {
-      "name": "hailuo_tts_provider",
-      "title": "Hailuo TTS",
-      "description": "Hailuo TTS Provider that allows you to use [Hailuo(zh)](https://platform.minimaxi.com/document/T2A%20V2?) [Hailuo(en)](https://intl.minimaxi.com/document/T2A%20V2) service",
-      "icon": "hailuo.png",
+      "name": "minimax_tts_provider",
+      "title": "MiniMax TTS",
+      "description": "MiniMax TTS Provider that allows you to use [MiniMax(zh)](https://platform.minimaxi.com/document/T2A%20V2?) [MiniMax(en)](https://intl.minimaxi.com/document/T2A%20V2) service",
+      "icon": "minimax.png",
       "mode": "provider",
       "preferences": [
         {
           "name": "apiKey",
-          "description": "Hailuo api key",
+          "description": "MiniMax api key",
           "type": "password",
           "required": false,
-          "title": "Hailuo Api Key",
+          "title": "MiniMax Api Key",
           "default": "",
-          "defaultProxy": "KEY_HAILUO_ZH_APIKEY",
-          "placeholder": "Hailuo Api Key"
+          "defaultProxy": "key_management|minimax",
+          "placeholder": "MiniMax Api Key"
         },
         {
           "name": "groupId",
           "description": "Hailuo group id",
           "type": "textfield",
           "required": false,
-          "title": "Hailuo Group Id",
+          "title": "MiniMax Group Id",
           "default": "",
-          "defaultProxy": "KEY_HAILUO_ZH_GROUPID",
-          "placeholder": "Hailuo Group Id"
+          "defaultProxy": "key_management|minimax",
+          "placeholder": "MiniMax Group Id"
         },
         {
           "name": "modelName",
@@ -529,7 +533,7 @@
           "type": "dropdown",
           "required": false,
           "dataProxy": "tts_providers|voice_speed_list",
-          "default": 1.2
+          "default": "1.2"
         },
         {
           "name": "baseUrl",
@@ -538,7 +542,7 @@
           "required": false,
           "title": "Hailuo Api Base Url",
           "default": "https://api.minimax.chat/v1",
-          "defaultProxy": "KEY_HAILUO_BASEURL",
+          "defaultProxy": "key_management|minimax",
           "placeholder": "https://api.minimax.chat/v1"
         }
       ]
@@ -595,7 +599,7 @@
           "required": false,
           "title": "Api Key",
           "default": "",
-          "defaultProxy": "KEY_GOOGLE_APIKEY",
+          "defaultProxy": "key_management|google",
           "placeholder": "AI****"
         }
       ]
@@ -625,7 +629,7 @@
           "required": false,
           "title": "Hailuo Api Key",
           "default": "",
-          "defaultProxy": "tts_providers|hailuo_tts_provider",
+          "defaultProxy": "key_management|minimax",
           "placeholder": "Hailuo Api Key"
         }
       ]
@@ -655,7 +659,7 @@
           "required": false,
           "title": "ElevenLabs Api Key",
           "default": "",
-          "defaultProxy": "tts_providers|elevenlabs_tts_provider",
+          "defaultProxy": "key_management|elevenlabs",
           "placeholder": "ElevenLabs Api Key"
         }
       ]
@@ -676,7 +680,7 @@
           "required": false,
           "title": "Speechify Api Key",
           "default": "",
-          "defaultProxy": "tts_providers|speechify_tts_provider",
+          "defaultProxy": "key_management|speechify",
           "placeholder": "Speechify Api Key"
         }
       ]
@@ -697,7 +701,7 @@
           "required": false,
           "title": "ElevenLabs Api Key",
           "default": "",
-          "defaultProxy": "tts_providers|elevenlabs_tts_provider",
+          "defaultProxy": "key_management|elevenlabs",
           "placeholder": "ElevenLabs Api Key"
         }
       ]
@@ -706,7 +710,7 @@
   "dependencies": {
     "@enconvo/api": "link:/Users/ysnows/Documents/Project/enconvo.nodejs/enconvo_api",
     "@google-cloud/text-to-speech": "^5.6.0",
-    "@speechify/api-sdk": "^2.4.1",
+    "@speechify/api": "^1.0.0",
     "axios": "^1.7.9",
     "elevenlabs": "^1.52.0",
     "file-system-cache": "^3.0.0",

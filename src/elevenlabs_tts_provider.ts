@@ -15,6 +15,9 @@ export class ElevenLabsTTSProvider extends TTSProvider {
         console.log("llll", options)
 
         const ELEVENLABS_API_KEY = options.apiKey; // Replace with your actual API key
+        if (!ELEVENLABS_API_KEY) {
+            throw new Error("ELEVENLABS_API_KEY is not set");
+        }
 
         const client = new ElevenLabsClient({ apiKey: ELEVENLABS_API_KEY });
         const response = await client.textToSpeech.convert(options.voice.value, {
@@ -24,29 +27,6 @@ export class ElevenLabsTTSProvider extends TTSProvider {
         });
 
         await this.saveStreamToFile(response, audioFilePath);
-
-        // Create a buffer to store the audio data from the stream
-        // const chunks: Buffer[] = [];
-
-        // // Process the stream by collecting all chunks of data
-        // response.on('data', (chunk: Buffer) => {
-        //     chunks.push(chunk);
-        // });
-
-        // // Wait for the stream to finish and combine all chunks
-        // await new Promise<void>((resolve, reject) => {
-        //     response.on('end', () => resolve());
-        //     response.on('error', (err) => reject(err));
-        // });
-
-        // // Combine all chunks into a single buffer
-        // const buffer = Buffer.concat(chunks);
-
-        // // Write the buffer to the specified audio file path
-        // await writeFileAsync(audioFilePath, buffer);
-
-        // // Log success message
-        // console.log(`Audio file successfully saved to: ${audioFilePath}`);
 
         return {
             path: audioFilePath,

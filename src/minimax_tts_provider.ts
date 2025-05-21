@@ -22,7 +22,7 @@ export class HailuoTTSProvider extends TTSProvider {
             stream: false,
             voice_setting: {
                 voice_id: options.voice.value,
-                speed: speed || options.speed?.value || 1.0,
+                speed: speed || options.speed?.value || "1.2",
                 vol: 1,
                 pitch: 0
             },
