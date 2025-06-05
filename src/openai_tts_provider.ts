@@ -17,7 +17,7 @@ export class OpenAITTSProvider extends TTSProvider {
 
         const options = this.options
 
-        const OPENAI_API_KEY = options.openAIApiKey; // Replace with your actual API key
+        const OPENAI_API_KEY = options.apiKey; // Replace with your actual API key
 
         const data = {
             model: options.modelName.value,

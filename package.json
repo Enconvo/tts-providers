@@ -17,7 +17,7 @@
       "title": "MiniMax TTS ( Enconvo Cloud Plan )",
       "description": "MiniMax TTS Provider that allows you to use MiniMax's online text-to-speech service, provided by Enconvo Cloud Plan",
       "icon": "minimax.png",
-      "mode": "provider",
+      "commandType": "provider",
       "preferences": [
         {
           "name": "modelName",
@@ -62,7 +62,7 @@
       "title": "Microsoft TTS ( Enconvo Cloud Plan )",
       "description": "Microsoft TTS Provider that allows you to use Microsoft Azure's online text-to-speech service, provided by Enconvo Cloud Plan",
       "icon": "azure.png",
-      "mode": "provider",
+      "commandType": "provider",
       "preferences": [
         {
           "name": "voice",
@@ -89,7 +89,7 @@
       "title": "Edge TTS",
       "description": "Edge TTS Provider that allows you to use Microsoft Edge's online text-to-speech service",
       "icon": "edge_tts.jpg",
-      "mode": "provider",
+      "commandType": "provider",
       "preferences": [
         {
           "name": "voice",
@@ -125,7 +125,7 @@
       "title": "Microsoft TTS",
       "description": "Microsoft TTS Provider that allows you to use [Microsoft Azure's online text-to-speech](https://learn.microsoft.com/en-us/azure/ai-services/speech-service/get-started-text-to-speech?tabs=macos%2Cterminal&pivots=programming-language-rest) service",
       "icon": "azure.png",
-      "mode": "provider",
+      "commandType": "provider",
       "preferences": [
         {
           "name": "voice",
@@ -190,7 +190,7 @@
       "title": "Eleven Labs TTS",
       "description": "Eleven Labs TTS Provider that allows you to use [Eleven Labs's online text-to-speech](https://elevenlabs.io/api) service",
       "icon": "elevenlabs.png",
-      "mode": "provider",
+      "commandType": "provider",
       "preferences": [
         {
           "name": "apiKey",
@@ -275,10 +275,10 @@
       "title": "OpenAI TTS",
       "description": "OpenAI TTS Provider that allows you to use [OpenAI's online text-to-speech](https://platform.openai.com/docs/guides/text-to-speech) service",
       "icon": "openai.png",
-      "mode": "provider",
+      "commandType": "provider",
       "preferences": [
         {
-          "name": "openAIApiKey",
+          "name": "apiKey",
           "description": "OpenAI api key",
           "type": "password",
           "required": false,
@@ -367,7 +367,7 @@
       "title": "Speechify TTS",
       "description": "Speechify TTS Provider that allows you to use [Speechify's online text-to-speech](https://speechify.com/api) service",
       "icon": "speechify.png",
-      "mode": "provider",
+      "commandType": "provider",
       "preferences": [
         {
           "name": "apiKey",
@@ -389,19 +389,19 @@
           "dataCustomTitle": "Add Custom Model",
           "data": [
             {
-              "title": "Simba Base", 
+              "title": "Simba Base",
               "value": "simba-base"
             },
             {
-              "title": "Simba English", 
+              "title": "Simba English",
               "value": "simba-english"
             },
             {
-              "title": "Simba Multilingual", 
+              "title": "Simba Multilingual",
               "value": "simba-multilingual"
             },
             {
-              "title": "Simba Turbo", 
+              "title": "Simba Turbo",
               "value": "simba-turbo"
             }
           ]
@@ -432,7 +432,7 @@
       "title": "Google TTS",
       "description": "Google TTS Provider that allows you to use [Google's online text-to-speech](https://cloud.google.com/text-to-speech/) service",
       "icon": "google.png",
-      "mode": "provider",
+      "commandType": "provider",
       "preferences": [
         {
           "name": "apiKey",
@@ -469,7 +469,7 @@
       "title": "MiniMax TTS",
       "description": "MiniMax TTS Provider that allows you to use [MiniMax(zh)](https://platform.minimaxi.com/document/T2A%20V2?) [MiniMax(en)](https://intl.minimaxi.com/document/T2A%20V2) service",
       "icon": "minimax.png",
-      "mode": "provider",
+      "commandType": "provider",
       "preferences": [
         {
           "name": "apiKey",
@@ -552,7 +552,7 @@
       "title": "System TTS",
       "description": "System TTS Provider that allows you to use `say` command on macos",
       "icon": "system.png",
-      "mode": "provider",
+      "commandType": "provider",
       "preferences": [
         {
           "name": "voice",
