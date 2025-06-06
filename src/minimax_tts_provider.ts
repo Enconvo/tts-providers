@@ -14,6 +14,7 @@ export class HailuoTTSProvider extends TTSProvider {
         // Initialize file writing utility
         const writeFileAsync = promisify(writeFile);
         const options = this.options;
+        const credentials = options.credentials
 
         // Prepare request payload according to Minimax API specs
         const data = {
@@ -35,12 +36,12 @@ export class HailuoTTSProvider extends TTSProvider {
         };
 
         // Construct API URL with group ID
-        const ttsUrl = `${options.baseUrl}/t2a_v2?GroupId=${options.groupId}`;
+        const ttsUrl = `${credentials.baseUrl}/t2a_v2?GroupId=${credentials.groupId}`;
 
         // Make API request
         const response = await axios.post(ttsUrl, data, {
             headers: {
-                'Authorization': `Bearer ${options.apiKey}`,
+                'Authorization': `Bearer ${credentials.apiKey}`,
                 'Content-Type': 'application/json'
             }
         });

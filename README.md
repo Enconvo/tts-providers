@@ -44,3 +44,46 @@ Created and maintained by EnconvoAI
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
+
+
+
+
+    ```json
+    {
+      "name": "google_tts_provider",
+      "title": "Google TTS",
+      "description": "Google TTS Provider that allows you to use [Google's online text-to-speech](https://cloud.google.com/text-to-speech/) service",
+      "icon": "google.png",
+      "commandType": "provider",
+      "preferences": [
+        {
+          "name": "apiKey",
+          "description": "Google api key",
+          "type": "password",
+          "required": false,
+          "title": "Google Api Key",
+          "default": "",
+          "defaultProxy": "credentials|google",
+          "placeholder": "AI*****"
+        },
+        {
+          "name": "voice",
+          "description": "The voice to TTS.",
+          "type": "dropdown",
+          "required": false,
+          "title": "Voice",
+          "default": "en-US-Journey-D",
+          "dataProxy": "tts_providers|google_voices"
+        },
+        {
+          "name": "speed",
+          "title": "Speech Speed",
+          "description": "The speed to TTS.",
+          "type": "dropdown",
+          "required": false,
+          "dataProxy": "tts_providers|voice_speed_list",
+          "default": "1.2"
+        }
+      ]
+    }
+    ```

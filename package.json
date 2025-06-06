@@ -13,7 +13,7 @@
   "type": "module",
   "commands": [
     {
-      "name": "enconvo_hailuo_tts_provider",
+      "name": "enconvo_minimax_tts_provider",
       "title": "MiniMax TTS ( Enconvo Cloud Plan )",
       "description": "MiniMax TTS Provider that allows you to use MiniMax's online text-to-speech service, provided by Enconvo Cloud Plan",
       "icon": "minimax.png",
@@ -44,7 +44,7 @@
           "required": false,
           "title": "Voice",
           "default": "English_MaturePartner",
-          "dataProxy": "tts_providers|enconvo_hailuo_voices"
+          "dataProxy": "tts_providers|enconvo_minimax_voices"
         },
         {
           "name": "speed",
@@ -128,6 +128,20 @@
       "commandType": "provider",
       "preferences": [
         {
+          "name": "credentials",
+          "description": "The key management provider to use",
+          "type": "extension",
+          "required": false,
+          "default": "microsoft_speech",
+          "extensionType": "credentials-provider",
+          "extensionFilter": {
+            "targetCommands": [
+              "credentials|microsoft_speech"
+            ]
+          },
+          "title": "Credential Provider"
+        },
+        {
           "name": "voice",
           "title": "Speech Voice",
           "description": "The voice to TTS.",
@@ -144,46 +158,8 @@
           "required": false,
           "dataProxy": "tts_providers|voice_speed_list",
           "default": "1.2"
-        },
-        {
-          "name": "region",
-          "title": "Resource Region",
-          "description": "The region of the resource.",
-          "type": "dropdown",
-          "required": true,
-          "default": "eastus",
-          "defaultProxy": "key_management|microsoft_speech",
-          "dataProxy": "speech_recognize_providers|azure_speech_regions"
-        },
-        {
-          "name": "resource_key",
-          "title": "Resource Key",
-          "description": "How to get api key? [🔑here](https://learn.microsoft.com/en-us/azure/ai-services/speech-service/overview)",
-          "type": "password",
-          "required": true,
-          "default": "",
-          "defaultProxy": "key_management|microsoft_speech",
-          "placeholder": "********"
         }
       ]
-    },
-    {
-      "name": "azure_voices",
-      "title": "azure_voices",
-      "commandType": "function_command",
-      "description": "get azure_voices list",
-      "icon": "icon.png",
-      "showInCommandList": false,
-      "mode": "no-view"
-    },
-    {
-      "name": "voice_speed_list",
-      "title": "voice_speed_list",
-      "commandType": "function_command",
-      "description": "get voice_speed_list list",
-      "icon": "icon.png",
-      "showInCommandList": false,
-      "mode": "no-view"
     },
     {
       "name": "elevenlabs_tts_provider",
@@ -193,14 +169,18 @@
       "commandType": "provider",
       "preferences": [
         {
-          "name": "apiKey",
-          "description": "Eleven Labs api key",
-          "type": "password",
+          "name": "credentials",
+          "description": "The key management provider to use",
+          "type": "extension",
           "required": false,
-          "title": "Eleven Labs Api Key",
-          "default": "",
-          "defaultProxy": "key_management|elevenlabs",
-          "placeholder": "Eleven Labs Api Key"
+          "default": "elevenlabs",
+          "extensionType": "credentials-provider",
+          "extensionFilter": {
+            "targetCommands": [
+              "credentials|elevenlabs"
+            ]
+          },
+          "title": "Credential Provider"
         },
         {
           "name": "modelName",
@@ -278,24 +258,18 @@
       "commandType": "provider",
       "preferences": [
         {
-          "name": "apiKey",
-          "description": "OpenAI api key",
-          "type": "password",
+          "name": "credentials",
+          "description": "The key management provider to use",
+          "type": "extension",
           "required": false,
-          "title": "OpenAI Api Key",
-          "default": "",
-          "defaultProxy": "key_management|open_ai",
-          "placeholder": "OpenAI Api Key"
-        },
-        {
-          "name": "baseUrl",
-          "description": "OpenAI api base url",
-          "type": "textfield",
-          "required": false,
-          "title": "OpenAI Api Base Url",
-          "default": "https://api.openai.com/v1",
-          "defaultProxy": "key_management|open_ai",
-          "placeholder": "htts://api.openai.com/v1"
+          "default": "open_ai",
+          "extensionType": "credentials-provider",
+          "extensionFilter": {
+            "targetCommands": [
+              "credentials|open_ai"
+            ]
+          },
+          "title": "Credential Provider"
         },
         {
           "name": "modelName",
@@ -370,14 +344,18 @@
       "commandType": "provider",
       "preferences": [
         {
-          "name": "apiKey",
-          "description": "Speechify api key",
-          "type": "password",
+          "name": "credentials",
+          "description": "The key management provider to use",
+          "type": "extension",
           "required": false,
-          "title": "Speechify Api Key",
-          "default": "",
-          "defaultProxy": "key_management|speechify",
-          "placeholder": "Speechify Api Key"
+          "default": "speechify",
+          "extensionType": "credentials-provider",
+          "extensionFilter": {
+            "targetCommands": [
+              "credentials|speechify"
+            ]
+          },
+          "title": "Credential Provider"
         },
         {
           "name": "modelName",
@@ -428,43 +406,6 @@
       ]
     },
     {
-      "name": "google_tts_provider",
-      "title": "Google TTS",
-      "description": "Google TTS Provider that allows you to use [Google's online text-to-speech](https://cloud.google.com/text-to-speech/) service",
-      "icon": "google.png",
-      "commandType": "provider",
-      "preferences": [
-        {
-          "name": "apiKey",
-          "description": "Google api key",
-          "type": "password",
-          "required": false,
-          "title": "Google Api Key",
-          "default": "",
-          "defaultProxy": "key_management|google",
-          "placeholder": "AI*****"
-        },
-        {
-          "name": "voice",
-          "description": "The voice to TTS.",
-          "type": "dropdown",
-          "required": false,
-          "title": "Voice",
-          "default": "en-US-Journey-D",
-          "dataProxy": "tts_providers|google_voices"
-        },
-        {
-          "name": "speed",
-          "title": "Speech Speed",
-          "description": "The speed to TTS.",
-          "type": "dropdown",
-          "required": false,
-          "dataProxy": "tts_providers|voice_speed_list",
-          "default": "1.2"
-        }
-      ]
-    },
-    {
       "name": "minimax_tts_provider",
       "title": "MiniMax TTS",
       "description": "MiniMax TTS Provider that allows you to use [MiniMax(zh)](https://platform.minimaxi.com/document/T2A%20V2?) [MiniMax(en)](https://intl.minimaxi.com/document/T2A%20V2) service",
@@ -472,24 +413,18 @@
       "commandType": "provider",
       "preferences": [
         {
-          "name": "apiKey",
-          "description": "MiniMax api key",
-          "type": "password",
+          "name": "credentials",
+          "description": "The key management provider to use",
+          "type": "extension",
           "required": false,
-          "title": "MiniMax Api Key",
-          "default": "",
-          "defaultProxy": "key_management|minimax",
-          "placeholder": "MiniMax Api Key"
-        },
-        {
-          "name": "groupId",
-          "description": "Hailuo group id",
-          "type": "textfield",
-          "required": false,
-          "title": "MiniMax Group Id",
-          "default": "",
-          "defaultProxy": "key_management|minimax",
-          "placeholder": "MiniMax Group Id"
+          "default": "minimax",
+          "extensionType": "credentials-provider",
+          "extensionFilter": {
+            "targetCommands": [
+              "credentials|minimax"
+            ]
+          },
+          "title": "Credential Provider"
         },
         {
           "name": "modelName",
@@ -524,7 +459,7 @@
           "required": false,
           "title": "Voice",
           "default": "English_MaturePartner",
-          "dataProxy": "tts_providers|hailuo_voices"
+          "dataProxy": "tts_providers|minimax_voices"
         },
         {
           "name": "speed",
@@ -534,16 +469,6 @@
           "required": false,
           "dataProxy": "tts_providers|voice_speed_list",
           "default": "1.2"
-        },
-        {
-          "name": "baseUrl",
-          "description": "Hailuo api base url",
-          "type": "textfield",
-          "required": false,
-          "title": "Hailuo Api Base Url",
-          "default": "https://api.minimax.chat/v1",
-          "defaultProxy": "key_management|minimax",
-          "placeholder": "https://api.minimax.chat/v1"
         }
       ]
     },
@@ -584,6 +509,24 @@
       ]
     },
     {
+      "name": "azure_voices",
+      "title": "azure_voices",
+      "commandType": "function_command",
+      "description": "get azure_voices list",
+      "icon": "icon.png",
+      "showInCommandList": false,
+      "mode": "no-view"
+    },
+    {
+      "name": "voice_speed_list",
+      "title": "voice_speed_list",
+      "commandType": "function_command",
+      "description": "get voice_speed_list list",
+      "icon": "icon.png",
+      "showInCommandList": false,
+      "mode": "no-view"
+    },
+    {
       "name": "google_voices",
       "title": "Google Voices",
       "description": "get google_voices list",
@@ -599,7 +542,7 @@
           "required": false,
           "title": "Api Key",
           "default": "",
-          "defaultProxy": "key_management|google",
+          "defaultProxy": "credentials|google",
           "placeholder": "AI****"
         }
       ]
@@ -614,30 +557,35 @@
       "mode": "no-view"
     },
     {
-      "name": "hailuo_voices",
-      "title": "Hailuo Voices",
-      "description": "get hailuo voices list",
+      "name": "minimax_voices",
+      "title": "MiniMax Voices",
+      "description": "get minimax voices list",
       "icon": "icon.png",
       "commandType": "function_command",
       "showInCommandList": false,
       "mode": "no-view",
       "preferences": [
         {
-          "name": "apiKey",
-          "description": "Hailuo api key",
-          "type": "password",
+          "name": "credentials",
+          "description": "The key management provider to use",
+          "type": "extension",
           "required": false,
-          "title": "Hailuo Api Key",
-          "default": "",
-          "defaultProxy": "key_management|minimax",
-          "placeholder": "Hailuo Api Key"
+          "default": "minimax",
+          "extensionType": "credentials-provider",
+          "defaultProxy": "tts_providers|minimax_tts_provider",
+          "extensionFilter": {
+            "targetCommands": [
+              "credentials|minimax"
+            ]
+          },
+          "title": "Credential Provider"
         }
       ]
     },
     {
-      "name": "enconvo_hailuo_voices",
-      "title": "Enconvo Hailuo Voices",
-      "description": "get enconvo hailuo voices list",
+      "name": "enconvo_minimax_voices",
+      "title": "Enconvo MiniMax Voices",
+      "description": "get enconvo minimax voices list",
       "icon": "icon.png",
       "commandType": "function_command",
       "showInCommandList": false,
@@ -653,14 +601,19 @@
       "mode": "no-view",
       "preferences": [
         {
-          "name": "apiKey",
-          "description": "ElevenLabs api key",
-          "type": "password",
+          "name": "credentials",
+          "description": "The key management provider to use",
+          "type": "extension",
           "required": false,
-          "title": "ElevenLabs Api Key",
-          "default": "",
-          "defaultProxy": "key_management|elevenlabs",
-          "placeholder": "ElevenLabs Api Key"
+          "default": "elevenlabs",
+          "extensionType": "credentials-provider",
+          "defaultProxy": "tts_providers|elevenlabs_tts_provider",
+          "extensionFilter": {
+            "targetCommands": [
+              "credentials|elevenlabs"
+            ]
+          },
+          "title": "Credential Provider"
         }
       ]
     },
@@ -674,14 +627,19 @@
       "mode": "no-view",
       "preferences": [
         {
-          "name": "apiKey",
-          "description": "Speechify api key",
-          "type": "password",
+          "name": "credentials",
+          "description": "The key management provider to use",
+          "type": "extension",
           "required": false,
-          "title": "Speechify Api Key",
-          "default": "",
-          "defaultProxy": "key_management|speechify",
-          "placeholder": "Speechify Api Key"
+          "default": "speechify",
+          "extensionType": "credentials-provider",
+          "defaultProxy": "tts_providers|speechify_tts_provider",
+          "extensionFilter": {
+            "targetCommands": [
+              "credentials|speechify"
+            ]
+          },
+          "title": "Credential Provider"
         }
       ]
     },
@@ -701,7 +659,7 @@
           "required": false,
           "title": "ElevenLabs Api Key",
           "default": "",
-          "defaultProxy": "key_management|elevenlabs",
+          "defaultProxy": "credentials|elevenlabs",
           "placeholder": "ElevenLabs Api Key"
         }
       ]

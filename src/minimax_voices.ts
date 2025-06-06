@@ -14,7 +14,7 @@ async function fetchModels(url?: string, api_key?: string, type?: string): Promi
 
     try {
         // Determine which API endpoint to use based on the type
-        const endpoint = 'https://api.minimax.chat/v1/get_voice'
+        const endpoint = `${url}/get_voice`
 
         // Make API request to ElevenLabs API
         const resp = await fetch(endpoint, {
@@ -78,7 +78,9 @@ async function fetchModels(url?: string, api_key?: string, type?: string): Promi
  */
 export default async function main(req: Request): Promise<string> {
     const options = await req.json()
-    options.api_key = options.apiKey
+    const credentials = options.credentials
+    options.api_key = credentials.apiKey
+    options.url = credentials.baseUrl
 
     const modelCache = new DropdownListCache(fetchModels)
 

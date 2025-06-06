@@ -8,7 +8,7 @@ import { DropdownListCache } from "@enconvo/api"
  * @param api_key - API authentication key
  * @returns Promise<ModelOutput[]> - Array of processed model data
  */
-async function fetchModels(url: string, api_key: string, type: string): Promise<DropdownListCache.ModelOutput[]> {
+async function fetchModels(url?: string, api_key?: string, type?: string): Promise<DropdownListCache.ModelOutput[]> {
     // Initialize empty array to store models
     let models: DropdownListCache.ModelOutput[] = []
 
@@ -62,7 +62,8 @@ async function fetchModels(url: string, api_key: string, type: string): Promise<
  */
 export default async function main(req: Request): Promise<string> {
     const options = await req.json()
-    options.api_key = options.apiKey
+    const credentials = options.credentials
+    options.api_key = credentials.apiKey
 
     const modelCache = new DropdownListCache(fetchModels)
 

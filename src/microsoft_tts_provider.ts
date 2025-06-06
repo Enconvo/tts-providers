@@ -24,7 +24,8 @@ export class MicrosoftTTSProvider extends TTSProvider {
     ttsToFile(text: string, audioFilePath: string, speed?: number) {
         return new Promise((resolve, reject) => {
             // This example requires environment variables named "SPEECH_KEY" and "SPEECH_REGION"
-            const speechConfig = SpeechConfig.fromSubscription(this.options.resource_key, this.options.region.value);
+            const credentials = this.options.credentials
+            const speechConfig = SpeechConfig.fromSubscription(credentials.resource_key, credentials.region.value);
             const audioConfig = AudioConfig.fromAudioFileOutput(audioFilePath);
             // mp3
             speechConfig.speechSynthesisOutputFormat = SpeechSynthesisOutputFormat.Audio16Khz32KBitRateMonoMp3

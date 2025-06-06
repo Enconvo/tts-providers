@@ -17,7 +17,8 @@ export class OpenAITTSProvider extends TTSProvider {
 
         const options = this.options
 
-        const OPENAI_API_KEY = options.apiKey; // Replace with your actual API key
+        const credentials = options.credentials
+        const OPENAI_API_KEY = credentials.apiKey; // Replace with your actual API key
 
         const data = {
             model: options.modelName.value,
@@ -26,7 +27,7 @@ export class OpenAITTSProvider extends TTSProvider {
             speed: speed || options.speed?.value || 1.2
         };
 
-        const ttsUrl = `${options.baseUrl}/audio/speech`
+        const ttsUrl = `${credentials.baseUrl}/audio/speech`
 
         const response = await axios.post(ttsUrl, data, {
             headers: {

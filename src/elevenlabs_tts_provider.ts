@@ -12,9 +12,9 @@ export class ElevenLabsTTSProvider extends TTSProvider {
 
     protected async _toFile({ text, audioFilePath, speed }: TTSProvider._ToFileTTSParams): Promise<TTSProvider.TTSItem> {
         const options = this.options
-        console.log("llll", options)
 
-        const ELEVENLABS_API_KEY = options.apiKey; // Replace with your actual API key
+        const credentials = options.credentials
+        const ELEVENLABS_API_KEY = credentials.apiKey; // Replace with your actual API key
         if (!ELEVENLABS_API_KEY) {
             throw new Error("ELEVENLABS_API_KEY is not set");
         }
