@@ -26,7 +26,7 @@ export class SpeechifyTTSProvider extends TTSProvider {
      * @param params - Parameters including text to convert, output file path, and speech speed
      * @returns Promise resolving to a TTSItem with path and text information
      */
-    protected async _toFile({ text, audioFilePath, speed }: TTSProvider._ToFileTTSParams): Promise<TTSProvider.TTSItem> {
+    protected async _toFile({ text, audioFilePath, speed, voice }: TTSProvider._ToFileTTSParams): Promise<TTSProvider.TTSItem> {
         const credentials = this.options.credentials
         if (!credentials.apiKey) {
             throw new Error("SPEECHIFY_API_KEY is not set");
@@ -49,7 +49,7 @@ export class SpeechifyTTSProvider extends TTSProvider {
             audioFormat: 'mp3',
             input: formattedText,
             model: this.options.modelName?.value,
-            voiceId: this.options.voice?.value || this.DEFAULT_VOICE_ID,
+            voiceId: voice || this.options.voice?.value || this.DEFAULT_VOICE_ID,
         });
 
         console.log("response", response)

@@ -10,7 +10,7 @@ export default function main(options: TTSProvider.TTSOptions) {
 
 export class HailuoTTSProvider extends TTSProvider {
 
-    protected async _toFile({ text, audioFilePath, speed }: TTSProvider._ToFileTTSParams): Promise<TTSProvider.TTSItem> {
+    protected async _toFile({ text, audioFilePath, speed, voice }: TTSProvider._ToFileTTSParams): Promise<TTSProvider.TTSItem> {
         // Initialize file writing utility
         const writeFileAsync = promisify(writeFile);
         const options = this.options;
@@ -22,7 +22,7 @@ export class HailuoTTSProvider extends TTSProvider {
             text: text,
             stream: false,
             voice_setting: {
-                voice_id: options.voice.value,
+                voice_id: voice || options.voice.value,
                 speed: speed || options.speed?.value || "1.2",
                 vol: 1,
                 pitch: 0

@@ -11,7 +11,7 @@ export default function main(options: TTSProvider.TTSOptions) {
 
 export class OpenAITTSProvider extends TTSProvider {
 
-    protected async _toFile({ text, audioFilePath, speed }: TTSProvider._ToFileTTSParams): Promise<TTSProvider.TTSItem> {
+    protected async _toFile({ text, audioFilePath, speed, voice }: TTSProvider._ToFileTTSParams): Promise<TTSProvider.TTSItem> {
 
         const writeFileAsync = promisify(writeFile);
 
@@ -23,7 +23,7 @@ export class OpenAITTSProvider extends TTSProvider {
         const data = {
             model: options.modelName.value,
             input: text,
-            voice: options.voice.value,
+            voice: voice || options.voice.value,
             speed: speed || options.speed?.value || 1.2
         };
 

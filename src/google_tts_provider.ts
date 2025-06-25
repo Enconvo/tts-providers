@@ -9,7 +9,7 @@ export default function main(options: TTSProvider.TTSOptions) {
 
 export class GoogleTTSProvider extends TTSProvider {
 
-    protected async _toFile({ text, audioFilePath, speed }: TTSProvider._ToFileTTSParams): Promise<TTSProvider.TTSItem> {
+    protected async _toFile({ text, audioFilePath, speed, voice }: TTSProvider._ToFileTTSParams): Promise<TTSProvider.TTSItem> {
 
         const response = await axios({
             method: 'post',
@@ -23,9 +23,9 @@ export class GoogleTTSProvider extends TTSProvider {
                     text: text
                 },
                 voice: {
-                    name: this.options.voice.value,
+                    name: voice || this.options.voice.value,
                     //@ts-ignore
-                    languageCode: this.options.voice.languageCode
+                    languageCode: voice || this.options.voice.languageCode
                 },
                 audioConfig: {
                     audioEncoding: 'MP3',

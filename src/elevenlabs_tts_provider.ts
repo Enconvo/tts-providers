@@ -10,7 +10,7 @@ export default function main(options: TTSProvider.TTSOptions) {
 
 export class ElevenLabsTTSProvider extends TTSProvider {
 
-    protected async _toFile({ text, audioFilePath, speed }: TTSProvider._ToFileTTSParams): Promise<TTSProvider.TTSItem> {
+    protected async _toFile({ text, audioFilePath, speed, voice }: TTSProvider._ToFileTTSParams): Promise<TTSProvider.TTSItem> {
         const options = this.options
 
         const credentials = options.credentials
@@ -20,7 +20,7 @@ export class ElevenLabsTTSProvider extends TTSProvider {
         }
 
         const client = new ElevenLabsClient({ apiKey: ELEVENLABS_API_KEY });
-        const response = await client.textToSpeech.convert(options.voice.value, {
+        const response = await client.textToSpeech.convert(voice || options.voice.value, {
             output_format: "mp3_44100_128",
             text: text,
             model_id: options.modelName.value
