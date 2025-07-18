@@ -1,0 +1,12 @@
+[project]
+name = "tts-providers"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "mlx-audio>=0.2.3",
+    "mlx-lm==0.24.1",
+    "mlx-vlm>=0.1.26",
+    "pip>=25.1.1",
+]
