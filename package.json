@@ -1,7 +1,7 @@
 {
   "$schema": "https://enconvo.com/schemas/extension.json",
   "name": "tts_providers",
-  "version": "0.0.134",
+  "version": "0.0.144",
   "description": "Text to Speech Providers",
   "title": "TTS Providers",
   "icon": "icon.png",
@@ -37,8 +37,16 @@
           "type": "dropdown",
           "required": false,
           "title": "Model Name",
-          "default": "speech-02-turbo",
+          "default": "speech-2.5-turbo-preview",
           "data": [
+            {
+              "title": "speech-2.5-turbo-preview",
+              "value": "speech-2.5-turbo-preview"
+            },
+            {
+              "title": "speech-2.5-hd-preview",
+              "value": "speech-2.5-hd-preview"
+            },
             {
               "title": "Speech-02-turbo (Limited-time free offer)",
               "value": "speech-02-turbo"
@@ -98,7 +106,7 @@
     },
     {
       "name": "edge_tts_provider",
-      "title": "Edge TTS",
+      "title": "Edge TTS (Free)",
       "description": "Edge TTS Provider that allows you to use Microsoft Edge's online text-to-speech service",
       "icon": "edge_tts.jpg",
       "commandType": "provider",
@@ -407,8 +415,16 @@
           "type": "dropdown",
           "required": false,
           "title": "Model Name",
-          "default": "speech-02-turbo",
+          "default": "speech-2.5-turbo-preview",
           "data": [
+            {
+              "title": "speech-2.5-turbo-preview",
+              "value": "speech-2.5-turbo-preview"
+            },
+            {
+              "title": "speech-2.5-hd-preview",
+              "value": "speech-2.5-hd-preview"
+            },
             {
               "title": "speech-02-hd",
               "value": "speech-02-hd"
