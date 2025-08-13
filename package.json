@@ -1,7 +1,7 @@
 {
   "$schema": "https://enconvo.com/schemas/extension.json",
   "name": "tts_providers",
-  "version": "0.0.144",
+  "version": "0.0.145",
   "description": "Text to Speech Providers",
   "title": "TTS Providers",
   "icon": "icon.png",
@@ -500,6 +500,89 @@
       ]
     },
     {
+      "name": "straico_tts_provider",
+      "title": "Straico TTS",
+      "description": "Straico TTS Provider that allows you to use [Straico's online text-to-speech](https://straico.com/api) service with ElevenLabs and OpenAI models",
+      "icon": "straico.png",
+      "commandType": "provider",
+      "preferences": [
+        {
+          "name": "credentials",
+          "description": "The key management provider to use",
+          "type": "extension",
+          "required": false,
+          "default": "straico",
+          "extensionType": "credentials-provider",
+          "extensionFilter": {
+            "targetCommands": [
+              "credentials|straico"
+            ]
+          },
+          "title": "Credential Provider"
+        },
+        {
+          "name": "modelName",
+          "description": "The model to TTS.",
+          "type": "dropdown",
+          "required": false,
+          "title": "Model Name",
+          "default": "eleven_multilingual_v2",
+          "data": [
+            {
+              "title": "ElevenLabs Multilingual V2",
+              "value": "eleven_multilingual_v2"
+            },
+            {
+              "title": "OpenAI TTS-1",
+              "value": "tts-1"
+            }
+          ]
+        },
+        {
+          "name": "eleven_multilingual_v2-voice",
+          "description": "The voice to TTS.",
+          "type": "dropdown",
+          "required": false,
+          "title": "Voice",
+          "default": "9BWtsMINqrJLrRacOk9x",
+          "dataProxy": "tts_providers|eleven_multilingual_v2-straico_voices",
+          "showOnlyWhen": {
+            "modelName": {
+              "operator": "or",
+              "conditions": [
+                {
+                  "condition": "eq",
+                  "value": "eleven_multilingual_v2",
+                  "operator": "or"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "tts-1-voice",
+          "description": "The voice to TTS.",
+          "type": "dropdown",
+          "required": false,
+          "title": "Voice",
+          "default": "alloy",
+          "dataProxy": "tts_providers|tts-1-straico_voices",
+          "showOnlyWhen": {
+            "modelName": {
+              "operator": "or",
+              "conditions": [
+                {
+                  "condition": "eq",
+                  "value": "tts-1",
+                  "operator": "or"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
       "name": "azure_voices",
       "title": "azure_voices",
       "commandType": "function_command",
@@ -653,6 +736,42 @@
           "extensionFilter": {
             "targetCommands": [
               "credentials|elevenlabs"
+            ]
+          },
+          "title": "Credential Provider"
+        }
+      ]
+    },
+    {
+      "name": "tts-1-straico_voices",
+      "title": "TTS-1 Straico Voices",
+      "description": "get tts-1 straico voices list",
+      "icon": "icon.png",
+      "commandType": "function_command",
+      "showInCommandList": false,
+      "mode": "no-view",
+      "preferences": [
+      ]
+    },
+    {
+      "name": "eleven_multilingual_v2-straico_voices",
+      "title": "ElevenLabs Multilingual V2 Straico Voices",
+      "description": "get eleven_multilingual_v2 straico voices list",
+      "icon": "icon.png",
+      "commandType": "function_command",
+      "showInCommandList": false,
+      "mode": "no-view",
+      "preferences": [
+        {
+          "name": "credentials",
+          "description": "The key management provider to use",
+          "type": "extension",
+          "required": false,
+          "default": "straico",
+          "extensionType": "credentials-provider",
+          "extensionFilter": {
+            "targetCommands": [
+              "credentials|straico"
             ]
           },
           "title": "Credential Provider"
