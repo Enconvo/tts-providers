@@ -6,11 +6,11 @@ import { env } from "process";
 import { promisify } from "util";
 
 export default function main(options: TTSProvider.TTSOptions) {
-    return new HailuoTTSProvider({ options })
+    return new EnconvoMinimaxTTSProvider({ options })
 }
 
 
-export class HailuoTTSProvider extends TTSProvider {
+export class EnconvoMinimaxTTSProvider extends TTSProvider {
 
     protected async _toFile({ text, audioFilePath, speed, voice }: TTSProvider._ToFileTTSParams): Promise<TTSProvider.TTSItem> {
         // Initialize file writing utility
@@ -20,7 +20,7 @@ export class HailuoTTSProvider extends TTSProvider {
 
         // Prepare request payload according to Minimax API specs
         const data = {
-            model: this.options.modelName.value, // Default model for Minimax TTS
+            model: this.options.modelName.value,
             text: text,
             stream: false,
             voice_setting: {
