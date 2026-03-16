@@ -1,8 +1,8 @@
 {
   "$schema": "https://enconvo.com/schemas/extension.json",
   "name": "tts_providers",
-  "version": "0.0.193",
-  "description": "Text to Speech Providers",
+  "version": "0.0.230",
+  "description": "TTS provider integrations for OpenAI, Microsoft Azure, ElevenLabs, MiniMax, Speechify, Straico, Google Cloud, macOS system TTS, and Edge TTS, with voice listing and speed configuration APIs.",
   "title": "TTS Providers",
   "icon": "icon.png",
   "author": "EnconvoAI",
@@ -37,22 +37,30 @@
           "type": "dropdown",
           "required": false,
           "title": "Model Name",
-          "default": "speech-2.5-turbo-preview",
+          "default": "speech-2.8-turbo",
           "data": [
             {
-              "title": "speech-2.5-turbo-preview",
-              "value": "speech-2.5-turbo-preview"
+              "title": "speech-2.8-turbo",
+              "value": "speech-2.8-turbo"
             },
             {
-              "title": "speech-2.5-hd-preview",
-              "value": "speech-2.5-hd-preview"
+              "title": "speech-2.8-hd",
+              "value": "speech-2.8-hd"
             },
             {
-              "title": "Speech-02-turbo (Limited-time free offer)",
+              "title": "speech-2.6-turbo",
+              "value": "speech-2.6-turbo"
+            },
+            {
+              "title": "speech-2.6-hd",
+              "value": "speech-2.6-hd"
+            },
+            {
+              "title": "speech-02-turbo",
               "value": "speech-02-turbo"
             },
             {
-              "title": "Speech-02-hd (3 points per character)",
+              "title": "speech-02-hd",
               "value": "speech-02-hd"
             }
           ]
@@ -75,7 +83,8 @@
           "dataProxy": "tts_providers|voice_speed_list",
           "default": "1.2"
         }
-      ]
+      ],
+      "private": true
     },
     {
       "name": "enconvo_microsoft_tts_provider",
@@ -102,7 +111,8 @@
           "dataProxy": "tts_providers|voice_speed_list",
           "default": "1.2"
         }
-      ]
+      ],
+      "private": true
     },
     {
       "name": "edge_voices",
@@ -111,7 +121,8 @@
       "icon": "icon.png",
       "commandType": "function_command",
       "showInCommandList": false,
-      "mode": "no-view"
+      "mode": "no-view",
+      "private": true
     },
     {
       "name": "microsoft_tts_provider",
@@ -152,7 +163,8 @@
           "dataProxy": "tts_providers|voice_speed_list",
           "default": "1.2"
         }
-      ]
+      ],
+      "private": true
     },
     {
       "name": "elevenlabs_tts_provider",
@@ -204,7 +216,8 @@
           "dataProxy": "tts_providers|voice_speed_list",
           "default": "1.2"
         }
-      ]
+      ],
+      "private": true
     },
     {
       "name": "openai_tts_provider",
@@ -290,7 +303,8 @@
           "dataProxy": "tts_providers|voice_speed_list",
           "default": "1.2"
         }
-      ]
+      ],
+      "private": true
     },
     {
       "name": "speechify_tts_provider",
@@ -359,7 +373,8 @@
           "dataProxy": "tts_providers|voice_speed_list",
           "default": "1.2"
         }
-      ]
+      ],
+      "private": true
     },
     {
       "name": "minimax_tts_provider",
@@ -388,31 +403,31 @@
           "type": "dropdown",
           "required": false,
           "title": "Model Name",
-          "default": "speech-2.5-turbo-preview",
+          "default": "speech-2.8-turbo",
           "data": [
             {
-              "title": "speech-2.5-turbo-preview",
-              "value": "speech-2.5-turbo-preview"
+              "title": "speech-2.8-turbo",
+              "value": "speech-2.8-turbo"
             },
             {
-              "title": "speech-2.5-hd-preview",
-              "value": "speech-2.5-hd-preview"
+              "title": "speech-2.8-hd",
+              "value": "speech-2.8-hd"
             },
             {
-              "title": "speech-02-hd",
-              "value": "speech-02-hd"
+              "title": "speech-2.6-turbo",
+              "value": "speech-2.6-turbo"
+            },
+            {
+              "title": "speech-2.6-hd",
+              "value": "speech-2.6-hd"
             },
             {
               "title": "speech-02-turbo",
               "value": "speech-02-turbo"
             },
             {
-              "title": "speech-01-turbo",
-              "value": "speech-01-turbo"
-            },
-            {
-              "title": "speech-01-hd",
-              "value": "speech-01-hd"
+              "title": "speech-02-hd",
+              "value": "speech-02-hd"
             }
           ]
         },
@@ -434,7 +449,8 @@
           "dataProxy": "tts_providers|voice_speed_list",
           "default": "1.2"
         }
-      ]
+      ],
+      "private": true
     },
     {
       "name": "system_tts_provider",
@@ -470,7 +486,8 @@
           "default": "m4a",
           "visibility": "hidden"
         }
-      ]
+      ],
+      "private": true
     },
     {
       "name": "straico_tts_provider",
@@ -553,7 +570,8 @@
             }
           }
         }
-      ]
+      ],
+      "private": true
     },
     {
       "name": "azure_voices",
@@ -562,7 +580,8 @@
       "description": "get azure_voices list",
       "icon": "icon.png",
       "showInCommandList": false,
-      "mode": "no-view"
+      "mode": "no-view",
+      "private": true
     },
     {
       "name": "voice_speed_list",
@@ -571,7 +590,8 @@
       "description": "get voice_speed_list list",
       "icon": "icon.png",
       "showInCommandList": false,
-      "mode": "no-view"
+      "mode": "no-view",
+      "private": true
     },
     {
       "name": "google_voices",
@@ -592,7 +612,8 @@
           "defaultProxy": "credentials|google",
           "placeholder": "AI****"
         }
-      ]
+      ],
+      "private": true
     },
     {
       "name": "system_voices",
@@ -601,7 +622,8 @@
       "icon": "icon.png",
       "commandType": "function_command",
       "showInCommandList": false,
-      "mode": "no-view"
+      "mode": "no-view",
+      "private": true
     },
     {
       "name": "minimax_voices",
@@ -627,7 +649,8 @@
           },
           "title": "Credential Provider"
         }
-      ]
+      ],
+      "private": true
     },
     {
       "name": "enconvo_minimax_voices",
@@ -636,7 +659,8 @@
       "icon": "icon.png",
       "commandType": "function_command",
       "showInCommandList": false,
-      "mode": "no-view"
+      "mode": "no-view",
+      "private": true
     },
     {
       "name": "elevenlabs_voices",
@@ -662,7 +686,8 @@
           },
           "title": "Credential Provider"
         }
-      ]
+      ],
+      "private": true
     },
     {
       "name": "speechify_voices",
@@ -688,7 +713,8 @@
           },
           "title": "Credential Provider"
         }
-      ]
+      ],
+      "private": true
     },
     {
       "name": "elevenlabs_models",
@@ -713,7 +739,8 @@
           },
           "title": "Credential Provider"
         }
-      ]
+      ],
+      "private": true
     },
     {
       "name": "tts-1-straico_voices",
@@ -723,7 +750,8 @@
       "commandType": "function_command",
       "showInCommandList": false,
       "mode": "no-view",
-      "preferences": []
+      "preferences": [],
+      "private": true
     },
     {
       "name": "eleven_multilingual_v2-straico_voices",
@@ -748,11 +776,12 @@
           },
           "title": "Credential Provider"
         }
-      ]
+      ],
+      "private": true
     }
   ],
   "dependencies": {
-    "@enconvo/api": "link:/Users/ysnows/Documents/Project/enconvo.nodejs/enconvo_api",
+    "@enconvo/api": "link:../../enconvo.nodejs/enconvo_api",
     "@google-cloud/text-to-speech": "^5.6.0",
     "@speechify/api": "^1.0.0",
     "axios": "^1.7.9",
@@ -774,8 +803,8 @@
     "lint:fix": "npm run lint --fix",
     "format": "prettier --write \"**/*.ts\"",
     "format:check": "prettier --list-different \"**/*.ts\"",
-    "build": "enconvo",
-    "dev": "enconvo --dev"
+    "build": "enconvo dev",
+    "dev": "enconvo dev --dev"
   },
   "minAppVersion": "1.8.8"
 }
