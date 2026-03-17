@@ -1,25 +1,29 @@
 import { ListCache, RequestOptions } from "@enconvo/api";
 
-
-async function fetchModels(options: RequestOptions): Promise<ListCache.ListItem[]> {
+async function fetchModels(
+  options: RequestOptions
+): Promise<ListCache.ListItem[]> {
   // Extract API key from credentials
   const apiKey = options.credentials?.apiKey;
 
   // Validate API key presence
   if (!apiKey) {
-    console.error('API key is required for Straico API');
+    console.error("API key is required for Straico API");
     return [];
   }
 
   try {
     // Make API request to Straico ElevenLabs voices endpoint
-    const response = await fetch('https://api.straico.com/v1/tts/elevenlabslist', {
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${apiKey}`,
-        'Content-Type': 'application/json'
+    const response = await fetch(
+      "https://api.straico.com/v1/tts/elevenlabslist",
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          "Content-Type": "application/json",
+        },
       }
-    });
+    );
 
     // Check if response is successful
     if (!response.ok) {
@@ -68,37 +72,34 @@ async function fetchModels(options: RequestOptions): Promise<ListCache.ListItem[
 
         // Add use_case if available
         if (voice.labels.use_case) {
-          labelParts.push(voice.labels.use_case.replace(/_/g, ' '));
+          labelParts.push(voice.labels.use_case.replace(/_/g, " "));
         }
 
         // Combine name with labels
         if (labelParts.length > 0) {
-          title = `${name} (${labelParts.join(', ')})`;
+          title = `${name} (${labelParts.join(", ")})`;
         }
       }
 
       return {
         title: title,
-        value: voice.voice_id || voice.id
+        value: voice.voice_id || voice.id,
       };
     });
 
     return voices;
-
   } catch (error) {
     // Log error and return empty array
-    console.error('Error fetching Straico ElevenLabs voices:', error);
+    console.error("Error fetching Straico ElevenLabs voices:", error);
     return [];
   }
 }
 
-
-
 export default async function main(req: Request): Promise<string> {
-  const options = await req.json()
+  const options = await req.json();
 
-  const modelCache = new ListCache(fetchModels)
+  const modelCache = new ListCache(fetchModels);
 
-  const models = await modelCache.getList(options)
-  return JSON.stringify(models)
+  const models = await modelCache.getList(options);
+  return JSON.stringify(models);
 }

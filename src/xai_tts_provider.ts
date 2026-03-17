@@ -4,10 +4,10 @@ import { writeFile } from "fs";
 import { promisify } from "util";
 
 export default function main(options: TTSProvider.TTSOptions) {
-  return new OpenAITTSProvider({ options });
+  return new XAITTSProvider({ options });
 }
 
-export class OpenAITTSProvider extends TTSProvider {
+export class XAITTSProvider extends TTSProvider {
   protected async _toFile({
     text,
     audioFilePath,
@@ -17,30 +17,36 @@ export class OpenAITTSProvider extends TTSProvider {
     const writeFileAsync = promisify(writeFile);
 
     const options = this.options;
-
     const credentials = options.credentials;
-    const OPENAI_API_KEY = credentials.apiKey; // Replace with your actual API key
+    const apiKey = credentials.apiKey;
 
-    const data = {
-      model: options.modelName.value,
-      input: text,
-      voice: voice || options.voice.value,
-      speed: speed || options.speed?.value || 1.2,
+    const voiceId = voice || options.voice.value || "eve";
+    const language = options.language?.value || "auto";
+
+    const data: Record<string, any> = {
+      text: text,
+      voice_id: voiceId,
+      language: language,
+      output_format: {
+        codec: "mp3",
+        sample_rate: 24000,
+        bit_rate: 128000,
+      },
     };
 
-    const ttsUrl = `${credentials.baseUrl}/audio/speech`;
+    const ttsUrl = `${credentials.baseUrl}/tts`;
 
     const response = await axios.post(ttsUrl, data, {
       headers: {
-        Authorization: `Bearer ${OPENAI_API_KEY}`,
+        Authorization: `Bearer ${apiKey}`,
         "Content-Type": "application/json",
       },
       responseType: "arraybuffer",
     });
 
     const buffer = Buffer.from(response.data);
-
     await writeFileAsync(audioFilePath, buffer);
+
     return {
       path: audioFilePath,
       text: text,

@@ -1,0 +1,52 @@
+[
+  {
+    "name": "tts",
+    "title": "tts",
+    "description": "Router for tts",
+    "routes": [
+      {
+        "name": "xai_tts",
+        "description": "xAI TTS Specialized API - Expressive speech synthesis with speech tags Provides access to xAI's TTS with expressive controls: - Inline tags: [pause], [long-pause], [laugh], [cry], [sigh], [cough], [throat-clear], [breathe-in], [breathe-out] - Wrapping tags: <loud>, <soft>, <whisper>, <fast>, <slow>, <deep>, <high>, <sing> - 5 voices: eve, ara, rex, sal, leo - 20+ auto-detected languages - Multiple audio formats: mp3, wav, pcm, mulaw, alaw - Sample rates: 8000, 16000, 22050, 24000, 44100, 48000",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "text": {
+              "type": "string",
+              "description": "Text to synthesize, supports speech tags like [pause], <whisper>text</whisper>"
+            },
+            "language": {
+              "type": "string",
+              "description": "BCP-47 language code or \"auto\" for auto-detection",
+              "default": "auto"
+            },
+            "voice_id": {
+              "type": "string",
+              "description": "Voice ID: eve, ara, rex, sal, leo",
+              "default": "eve"
+            },
+            "codec": {
+              "type": "string",
+              "description": "Audio codec: mp3, wav, pcm, mulaw, alaw",
+              "default": "mp3"
+            },
+            "sample_rate": {
+              "type": "number",
+              "description": "Sample rate in Hz: 8000, 16000, 22050, 24000, 44100, 48000",
+              "default": 24000
+            },
+            "bit_rate": {
+              "type": "number",
+              "description": "Bit rate in bps (MP3 only): 32000, 64000, 96000, 128000, 192000",
+              "default": 128000
+            }
+          },
+          "required": [
+            "text",
+            "language"
+          ]
+        },
+        "routePath": "tts_providers/tts/xai_tts"
+      }
+    ]
+  }
+]

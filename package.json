@@ -2,7 +2,7 @@
   "$schema": "https://enconvo.com/schemas/extension.json",
   "name": "tts_providers",
   "version": "0.0.230",
-  "description": "TTS provider integrations for OpenAI, Microsoft Azure, ElevenLabs, MiniMax, Speechify, Straico, Google Cloud, macOS system TTS, and Edge TTS, with voice listing and speed configuration APIs.",
+  "description": "TTS provider integrations for OpenAI, Microsoft Azure, ElevenLabs, MiniMax, Speechify, Straico, Google Cloud, xAI, macOS system TTS, and Edge TTS, with voice listing and speed configuration APIs.",
   "title": "TTS Providers",
   "icon": "icon.png",
   "author": "EnconvoAI",
@@ -448,6 +448,162 @@
           "required": false,
           "dataProxy": "tts_providers|voice_speed_list",
           "default": "1.2"
+        }
+      ],
+      "private": true
+    },
+    {
+      "name": "xai_tts_provider",
+      "title": "xAI TTS",
+      "description": "xAI TTS Provider that allows you to use [xAI's text-to-speech](https://docs.x.ai/developers/model-capabilities/audio/text-to-speech) service with expressive speech tags",
+      "icon": "x.png",
+      "commandType": "provider",
+      "preferences": [
+        {
+          "name": "credentials",
+          "description": "The key management provider to use",
+          "type": "extension",
+          "required": false,
+          "default": "x_ai",
+          "extensionType": "credentials-provider",
+          "extensionFilter": {
+            "targetCommands": [
+              "credentials|x_ai"
+            ]
+          },
+          "title": "Credential Provider"
+        },
+        {
+          "name": "voice",
+          "description": "The voice to TTS.",
+          "type": "dropdown",
+          "required": false,
+          "title": "Voice",
+          "default": "eve",
+          "data": [
+            {
+              "title": "Eve (energetic, upbeat)",
+              "value": "eve"
+            },
+            {
+              "title": "Ara (warm, friendly)",
+              "value": "ara"
+            },
+            {
+              "title": "Rex (confident, clear)",
+              "value": "rex"
+            },
+            {
+              "title": "Sal (smooth, balanced)",
+              "value": "sal"
+            },
+            {
+              "title": "Leo (authoritative, strong)",
+              "value": "leo"
+            }
+          ]
+        },
+        {
+          "name": "language",
+          "description": "The language for TTS. Use 'auto' for automatic detection.",
+          "type": "dropdown",
+          "required": false,
+          "title": "Language",
+          "default": "auto",
+          "data": [
+            { "title": "Auto Detect", "value": "auto" },
+            { "title": "English", "value": "en" },
+            { "title": "Chinese", "value": "zh" },
+            { "title": "Japanese", "value": "ja" },
+            { "title": "Korean", "value": "ko" },
+            { "title": "French", "value": "fr" },
+            { "title": "German", "value": "de" },
+            { "title": "Spanish (Spain)", "value": "es-ES" },
+            { "title": "Spanish (Mexico)", "value": "es-MX" },
+            { "title": "Portuguese (Portugal)", "value": "pt-PT" },
+            { "title": "Portuguese (Brazil)", "value": "pt-BR" },
+            { "title": "Italian", "value": "it" },
+            { "title": "Russian", "value": "ru" },
+            { "title": "Arabic (Egypt)", "value": "ar-EG" },
+            { "title": "Arabic (Saudi Arabia)", "value": "ar-SA" },
+            { "title": "Arabic (UAE)", "value": "ar-AE" },
+            { "title": "Hindi", "value": "hi" },
+            { "title": "Bengali", "value": "bn" },
+            { "title": "Turkish", "value": "tr" },
+            { "title": "Vietnamese", "value": "vi" },
+            { "title": "Indonesian", "value": "id" }
+          ]
+        }
+      ],
+      "private": true
+    },
+    {
+      "name": "enconvo_xai_tts_provider",
+      "title": "xAI TTS ( Enconvo Cloud Plan )",
+      "description": "xAI TTS Provider that allows you to use xAI's text-to-speech service with expressive speech tags, provided by Enconvo Cloud Plan",
+      "icon": "x.png",
+      "commandType": "provider",
+      "preferences": [
+        {
+          "name": "voice",
+          "description": "The voice to TTS.",
+          "type": "dropdown",
+          "required": false,
+          "title": "Voice",
+          "default": "eve",
+          "data": [
+            {
+              "title": "Eve (energetic, upbeat)",
+              "value": "eve"
+            },
+            {
+              "title": "Ara (warm, friendly)",
+              "value": "ara"
+            },
+            {
+              "title": "Rex (confident, clear)",
+              "value": "rex"
+            },
+            {
+              "title": "Sal (smooth, balanced)",
+              "value": "sal"
+            },
+            {
+              "title": "Leo (authoritative, strong)",
+              "value": "leo"
+            }
+          ]
+        },
+        {
+          "name": "language",
+          "description": "The language for TTS. Use 'auto' for automatic detection.",
+          "type": "dropdown",
+          "required": false,
+          "title": "Language",
+          "default": "auto",
+          "data": [
+            { "title": "Auto Detect", "value": "auto" },
+            { "title": "English", "value": "en" },
+            { "title": "Chinese", "value": "zh" },
+            { "title": "Japanese", "value": "ja" },
+            { "title": "Korean", "value": "ko" },
+            { "title": "French", "value": "fr" },
+            { "title": "German", "value": "de" },
+            { "title": "Spanish (Spain)", "value": "es-ES" },
+            { "title": "Spanish (Mexico)", "value": "es-MX" },
+            { "title": "Portuguese (Portugal)", "value": "pt-PT" },
+            { "title": "Portuguese (Brazil)", "value": "pt-BR" },
+            { "title": "Italian", "value": "it" },
+            { "title": "Russian", "value": "ru" },
+            { "title": "Arabic (Egypt)", "value": "ar-EG" },
+            { "title": "Arabic (Saudi Arabia)", "value": "ar-SA" },
+            { "title": "Arabic (UAE)", "value": "ar-AE" },
+            { "title": "Hindi", "value": "hi" },
+            { "title": "Bengali", "value": "bn" },
+            { "title": "Turkish", "value": "tr" },
+            { "title": "Vietnamese", "value": "vi" },
+            { "title": "Indonesian", "value": "id" }
+          ]
         }
       ],
       "private": true
