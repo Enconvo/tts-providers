@@ -1,3 +1,8 @@
+import { CredentialsProvider, getProjectEnv } from "@enconvo/api";
+import { writeFile, mkdir } from "fs/promises";
+import path from "path";
+import crypto from "crypto";
+
 interface XaiTTSParams {
   /** Text to synthesize, supports speech tags like [pause], <whisper>text</whisper> @required */
   text: string;
@@ -11,6 +16,10 @@ interface XaiTTSParams {
   sample_rate?: number;
   /** Bit rate in bps (MP3 only): 32000, 64000, 96000, 128000, 192000 @default 128000 */
   bit_rate?: number;
+  /** Output directory for the audio file. Defaults to getProjectEnv() temp dir */
+  output_dir?: string;
+  /** Output file name (without extension). Defaults to auto-generated hash */
+  file_name?: string;
 }
 
 /**
@@ -27,6 +36,7 @@ interface XaiTTSParams {
 export default async function POST(request: Request): Promise<Response> {
   const params = (await request.json()) as XaiTTSParams;
 
+  
   if (!params.text) {
     return Response.json({ error: "text is required" }, { status: 400 });
   }
@@ -38,13 +48,12 @@ export default async function POST(request: Request): Promise<Response> {
     );
   }
 
-  const { Environment } = await import("@enconvo/api");
-  const env = Environment.env();
-
-  const apiKey = env["XAI_API_KEY"] || "";
+  const provider = await CredentialsProvider.create("x_ai");
+  const options = provider.getOptions();
+  const apiKey = options.apiKey || "";
   if (!apiKey) {
     return Response.json(
-      { error: "XAI_API_KEY not configured" },
+      { error: "xAI credentials not configured. Please set up x_ai credentials." },
       { status: 500 }
     );
   }
@@ -83,19 +92,20 @@ export default async function POST(request: Request): Promise<Response> {
     );
   }
 
-  const contentTypeMap: Record<string, string> = {
-    mp3: "audio/mpeg",
-    wav: "audio/wav",
-    pcm: "audio/pcm",
-    mulaw: "audio/basic",
-    alaw: "audio/alaw",
-  };
-
   const arrayBuffer = await response.arrayBuffer();
-  const base64Audio = Buffer.from(arrayBuffer).toString("base64");
+  const buffer = Buffer.from(arrayBuffer);
+
+  const projectEnv = await getProjectEnv();
+  const outputDir = params.output_dir || path.join(projectEnv, "tts_output");
+  await mkdir(outputDir, { recursive: true });
+
+  const ext = codec === "pcm" || codec === "mulaw" || codec === "alaw" ? "raw" : codec;
+  const fileName = params.file_name || crypto.randomUUID();
+  const filePath = path.join(outputDir, `${fileName}.${ext}`);
+
+  await writeFile(filePath, buffer);
 
   return Response.json({
-    audio: base64Audio,
-    content_type: contentTypeMap[codec] || "audio/mpeg",
+    path: filePath,
   });
 }

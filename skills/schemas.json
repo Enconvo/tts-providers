@@ -38,6 +38,14 @@
               "type": "number",
               "description": "Bit rate in bps (MP3 only): 32000, 64000, 96000, 128000, 192000",
               "default": 128000
+            },
+            "output_dir": {
+              "type": "string",
+              "description": "Output directory for the audio file. Defaults to getProjectEnv() temp dir"
+            },
+            "file_name": {
+              "type": "string",
+              "description": "Output file name (without extension). Defaults to auto-generated hash"
             }
           },
           "required": [
