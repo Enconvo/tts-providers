@@ -1,7 +1,7 @@
 {
   "$schema": "https://enconvo.com/schemas/extension.json",
   "name": "tts_providers",
-  "version": "0.0.230",
+  "version": "0.0.231",
   "description": "TTS provider integrations for OpenAI, Microsoft Azure, ElevenLabs, MiniMax, Speechify, Straico, Google Cloud, xAI, macOS system TTS, and Edge TTS, with voice listing and speed configuration APIs.",
   "title": "TTS Providers",
   "icon": "icon.png",
@@ -30,6 +30,7 @@
       "description": "MiniMax TTS Provider that allows you to use MiniMax's online text-to-speech service, provided by Enconvo Cloud Plan",
       "icon": "minimax.png",
       "commandType": "provider",
+      "provider_category": "tts",
       "preferences": [
         {
           "name": "modelName",
@@ -41,27 +42,63 @@
           "data": [
             {
               "title": "speech-2.8-turbo",
-              "value": "speech-2.8-turbo"
+              "value": "speech-2.8-turbo",
+              "id": "enconvo-minimax-speech-2.8-turbo",
+              "description": "MiniMax Speech 2.8 Turbo — fast TTS via Enconvo Cloud Plan.",
+              "is_online": true,
+              "is_enconvo_cloud": true,
+              "is_bring_your_own_key": false,
+              "supports_streaming": true
             },
             {
               "title": "speech-2.8-hd",
-              "value": "speech-2.8-hd"
+              "value": "speech-2.8-hd",
+              "id": "enconvo-minimax-speech-2.8-hd",
+              "description": "MiniMax Speech 2.8 HD — high-quality TTS via Enconvo Cloud Plan.",
+              "is_online": true,
+              "is_enconvo_cloud": true,
+              "is_bring_your_own_key": false,
+              "supports_streaming": true
             },
             {
               "title": "speech-2.6-turbo",
-              "value": "speech-2.6-turbo"
+              "value": "speech-2.6-turbo",
+              "id": "enconvo-minimax-speech-2.6-turbo",
+              "description": "MiniMax Speech 2.6 Turbo — fast TTS via Enconvo Cloud Plan.",
+              "is_online": true,
+              "is_enconvo_cloud": true,
+              "is_bring_your_own_key": false,
+              "supports_streaming": true
             },
             {
               "title": "speech-2.6-hd",
-              "value": "speech-2.6-hd"
+              "value": "speech-2.6-hd",
+              "id": "enconvo-minimax-speech-2.6-hd",
+              "description": "MiniMax Speech 2.6 HD — high-quality TTS via Enconvo Cloud Plan.",
+              "is_online": true,
+              "is_enconvo_cloud": true,
+              "is_bring_your_own_key": false,
+              "supports_streaming": true
             },
             {
               "title": "speech-02-turbo",
-              "value": "speech-02-turbo"
+              "value": "speech-02-turbo",
+              "id": "enconvo-minimax-speech-02-turbo",
+              "description": "MiniMax Speech 02 Turbo — fast TTS via Enconvo Cloud Plan.",
+              "is_online": true,
+              "is_enconvo_cloud": true,
+              "is_bring_your_own_key": false,
+              "supports_streaming": true
             },
             {
               "title": "speech-02-hd",
-              "value": "speech-02-hd"
+              "value": "speech-02-hd",
+              "id": "enconvo-minimax-speech-02-hd",
+              "description": "MiniMax Speech 02 HD — high-quality TTS via Enconvo Cloud Plan.",
+              "is_online": true,
+              "is_enconvo_cloud": true,
+              "is_bring_your_own_key": false,
+              "supports_streaming": true
             }
           ]
         },
@@ -92,6 +129,7 @@
       "description": "Microsoft TTS Provider that allows you to use Microsoft Azure's online text-to-speech service, provided by Enconvo Cloud Plan",
       "icon": "azure.png",
       "commandType": "provider",
+      "provider_category": "tts",
       "preferences": [
         {
           "name": "voice",
@@ -130,6 +168,7 @@
       "description": "Microsoft TTS Provider that allows you to use [Microsoft Azure's online text-to-speech](https://learn.microsoft.com/en-us/azure/ai-services/speech-service/get-started-text-to-speech?tabs=macos%2Cterminal&pivots=programming-language-rest) service",
       "icon": "azure.png",
       "commandType": "provider",
+      "provider_category": "tts",
       "preferences": [
         {
           "name": "credentials",
@@ -172,6 +211,7 @@
       "description": "Eleven Labs TTS Provider that allows you to use [Eleven Labs's online text-to-speech](https://elevenlabs.io/api) service",
       "icon": "elevenlabs.png",
       "commandType": "provider",
+      "provider_category": "tts",
       "preferences": [
         {
           "name": "credentials",
@@ -225,6 +265,7 @@
       "description": "OpenAI TTS Provider that allows you to use [OpenAI's online text-to-speech](https://platform.openai.com/docs/guides/text-to-speech) service",
       "icon": "openai.png",
       "commandType": "provider",
+      "provider_category": "tts",
       "preferences": [
         {
           "name": "credentials",
@@ -250,11 +291,23 @@
           "data": [
             {
               "title": "tts-1",
-              "value": "tts-1"
+              "value": "tts-1",
+              "id": "openai-tts-1",
+              "description": "OpenAI TTS-1 — fast text-to-speech generation.",
+              "is_online": true,
+              "is_enconvo_cloud": false,
+              "is_bring_your_own_key": true,
+              "supports_streaming": true
             },
             {
               "title": "tts-1-hd",
-              "value": "tts-1-hd"
+              "value": "tts-1-hd",
+              "id": "openai-tts-1-hd",
+              "description": "OpenAI TTS-1 HD — high-definition text-to-speech generation.",
+              "is_online": true,
+              "is_enconvo_cloud": false,
+              "is_bring_your_own_key": true,
+              "supports_streaming": true
             }
           ],
           "dataCustomTitle": "Add Custom Model"
@@ -312,6 +365,7 @@
       "description": "Speechify TTS Provider that allows you to use [Speechify's online text-to-speech](https://speechify.com/api) service",
       "icon": "speechify.png",
       "commandType": "provider",
+      "provider_category": "tts",
       "preferences": [
         {
           "name": "credentials",
@@ -338,19 +392,43 @@
           "data": [
             {
               "title": "Simba Base",
-              "value": "simba-base"
+              "value": "simba-base",
+              "id": "speechify-simba-base",
+              "description": "Speechify Simba Base — general-purpose TTS model.",
+              "is_online": true,
+              "is_enconvo_cloud": false,
+              "is_bring_your_own_key": true,
+              "supports_streaming": true
             },
             {
               "title": "Simba English",
-              "value": "simba-english"
+              "value": "simba-english",
+              "id": "speechify-simba-english",
+              "description": "Speechify Simba English — optimized for English speech.",
+              "is_online": true,
+              "is_enconvo_cloud": false,
+              "is_bring_your_own_key": true,
+              "supports_streaming": true
             },
             {
               "title": "Simba Multilingual",
-              "value": "simba-multilingual"
+              "value": "simba-multilingual",
+              "id": "speechify-simba-multilingual",
+              "description": "Speechify Simba Multilingual — supports multiple languages.",
+              "is_online": true,
+              "is_enconvo_cloud": false,
+              "is_bring_your_own_key": true,
+              "supports_streaming": true
             },
             {
               "title": "Simba Turbo",
-              "value": "simba-turbo"
+              "value": "simba-turbo",
+              "id": "speechify-simba-turbo",
+              "description": "Speechify Simba Turbo — fastest Speechify TTS model.",
+              "is_online": true,
+              "is_enconvo_cloud": false,
+              "is_bring_your_own_key": true,
+              "supports_streaming": true
             }
           ]
         },
@@ -382,6 +460,7 @@
       "description": "MiniMax TTS Provider that allows you to use [MiniMax(zh)](https://platform.minimaxi.com/document/T2A%20V2?) [MiniMax(en)](https://intl.minimaxi.com/document/T2A%20V2) service",
       "icon": "minimax.png",
       "commandType": "provider",
+      "provider_category": "tts",
       "preferences": [
         {
           "name": "credentials",
@@ -407,27 +486,63 @@
           "data": [
             {
               "title": "speech-2.8-turbo",
-              "value": "speech-2.8-turbo"
+              "value": "speech-2.8-turbo",
+              "id": "minimax-speech-2.8-turbo",
+              "description": "MiniMax Speech 2.8 Turbo — fast TTS with your own API key.",
+              "is_online": true,
+              "is_enconvo_cloud": false,
+              "is_bring_your_own_key": true,
+              "supports_streaming": true
             },
             {
               "title": "speech-2.8-hd",
-              "value": "speech-2.8-hd"
+              "value": "speech-2.8-hd",
+              "id": "minimax-speech-2.8-hd",
+              "description": "MiniMax Speech 2.8 HD — high-quality TTS with your own API key.",
+              "is_online": true,
+              "is_enconvo_cloud": false,
+              "is_bring_your_own_key": true,
+              "supports_streaming": true
             },
             {
               "title": "speech-2.6-turbo",
-              "value": "speech-2.6-turbo"
+              "value": "speech-2.6-turbo",
+              "id": "minimax-speech-2.6-turbo",
+              "description": "MiniMax Speech 2.6 Turbo — fast TTS with your own API key.",
+              "is_online": true,
+              "is_enconvo_cloud": false,
+              "is_bring_your_own_key": true,
+              "supports_streaming": true
             },
             {
               "title": "speech-2.6-hd",
-              "value": "speech-2.6-hd"
+              "value": "speech-2.6-hd",
+              "id": "minimax-speech-2.6-hd",
+              "description": "MiniMax Speech 2.6 HD — high-quality TTS with your own API key.",
+              "is_online": true,
+              "is_enconvo_cloud": false,
+              "is_bring_your_own_key": true,
+              "supports_streaming": true
             },
             {
               "title": "speech-02-turbo",
-              "value": "speech-02-turbo"
+              "value": "speech-02-turbo",
+              "id": "minimax-speech-02-turbo",
+              "description": "MiniMax Speech 02 Turbo — fast TTS with your own API key.",
+              "is_online": true,
+              "is_enconvo_cloud": false,
+              "is_bring_your_own_key": true,
+              "supports_streaming": true
             },
             {
               "title": "speech-02-hd",
-              "value": "speech-02-hd"
+              "value": "speech-02-hd",
+              "id": "minimax-speech-02-hd",
+              "description": "MiniMax Speech 02 HD — high-quality TTS with your own API key.",
+              "is_online": true,
+              "is_enconvo_cloud": false,
+              "is_bring_your_own_key": true,
+              "supports_streaming": true
             }
           ]
         },
@@ -458,6 +573,7 @@
       "description": "xAI TTS Provider that allows you to use [xAI's text-to-speech](https://docs.x.ai/developers/model-capabilities/audio/text-to-speech) service with expressive speech tags",
       "icon": "x.png",
       "commandType": "provider",
+      "provider_category": "tts",
       "preferences": [
         {
           "name": "credentials",
@@ -511,27 +627,90 @@
           "title": "Language",
           "default": "auto",
           "data": [
-            { "title": "Auto Detect", "value": "auto" },
-            { "title": "English", "value": "en" },
-            { "title": "Chinese", "value": "zh" },
-            { "title": "Japanese", "value": "ja" },
-            { "title": "Korean", "value": "ko" },
-            { "title": "French", "value": "fr" },
-            { "title": "German", "value": "de" },
-            { "title": "Spanish (Spain)", "value": "es-ES" },
-            { "title": "Spanish (Mexico)", "value": "es-MX" },
-            { "title": "Portuguese (Portugal)", "value": "pt-PT" },
-            { "title": "Portuguese (Brazil)", "value": "pt-BR" },
-            { "title": "Italian", "value": "it" },
-            { "title": "Russian", "value": "ru" },
-            { "title": "Arabic (Egypt)", "value": "ar-EG" },
-            { "title": "Arabic (Saudi Arabia)", "value": "ar-SA" },
-            { "title": "Arabic (UAE)", "value": "ar-AE" },
-            { "title": "Hindi", "value": "hi" },
-            { "title": "Bengali", "value": "bn" },
-            { "title": "Turkish", "value": "tr" },
-            { "title": "Vietnamese", "value": "vi" },
-            { "title": "Indonesian", "value": "id" }
+            {
+              "title": "Auto Detect",
+              "value": "auto"
+            },
+            {
+              "title": "English",
+              "value": "en"
+            },
+            {
+              "title": "Chinese",
+              "value": "zh"
+            },
+            {
+              "title": "Japanese",
+              "value": "ja"
+            },
+            {
+              "title": "Korean",
+              "value": "ko"
+            },
+            {
+              "title": "French",
+              "value": "fr"
+            },
+            {
+              "title": "German",
+              "value": "de"
+            },
+            {
+              "title": "Spanish (Spain)",
+              "value": "es-ES"
+            },
+            {
+              "title": "Spanish (Mexico)",
+              "value": "es-MX"
+            },
+            {
+              "title": "Portuguese (Portugal)",
+              "value": "pt-PT"
+            },
+            {
+              "title": "Portuguese (Brazil)",
+              "value": "pt-BR"
+            },
+            {
+              "title": "Italian",
+              "value": "it"
+            },
+            {
+              "title": "Russian",
+              "value": "ru"
+            },
+            {
+              "title": "Arabic (Egypt)",
+              "value": "ar-EG"
+            },
+            {
+              "title": "Arabic (Saudi Arabia)",
+              "value": "ar-SA"
+            },
+            {
+              "title": "Arabic (UAE)",
+              "value": "ar-AE"
+            },
+            {
+              "title": "Hindi",
+              "value": "hi"
+            },
+            {
+              "title": "Bengali",
+              "value": "bn"
+            },
+            {
+              "title": "Turkish",
+              "value": "tr"
+            },
+            {
+              "title": "Vietnamese",
+              "value": "vi"
+            },
+            {
+              "title": "Indonesian",
+              "value": "id"
+            }
           ]
         }
       ],
@@ -543,6 +722,7 @@
       "description": "xAI TTS Provider that allows you to use xAI's text-to-speech service with expressive speech tags, provided by Enconvo Cloud Plan",
       "icon": "x.png",
       "commandType": "provider",
+      "provider_category": "tts",
       "preferences": [
         {
           "name": "voice",
@@ -582,27 +762,90 @@
           "title": "Language",
           "default": "auto",
           "data": [
-            { "title": "Auto Detect", "value": "auto" },
-            { "title": "English", "value": "en" },
-            { "title": "Chinese", "value": "zh" },
-            { "title": "Japanese", "value": "ja" },
-            { "title": "Korean", "value": "ko" },
-            { "title": "French", "value": "fr" },
-            { "title": "German", "value": "de" },
-            { "title": "Spanish (Spain)", "value": "es-ES" },
-            { "title": "Spanish (Mexico)", "value": "es-MX" },
-            { "title": "Portuguese (Portugal)", "value": "pt-PT" },
-            { "title": "Portuguese (Brazil)", "value": "pt-BR" },
-            { "title": "Italian", "value": "it" },
-            { "title": "Russian", "value": "ru" },
-            { "title": "Arabic (Egypt)", "value": "ar-EG" },
-            { "title": "Arabic (Saudi Arabia)", "value": "ar-SA" },
-            { "title": "Arabic (UAE)", "value": "ar-AE" },
-            { "title": "Hindi", "value": "hi" },
-            { "title": "Bengali", "value": "bn" },
-            { "title": "Turkish", "value": "tr" },
-            { "title": "Vietnamese", "value": "vi" },
-            { "title": "Indonesian", "value": "id" }
+            {
+              "title": "Auto Detect",
+              "value": "auto"
+            },
+            {
+              "title": "English",
+              "value": "en"
+            },
+            {
+              "title": "Chinese",
+              "value": "zh"
+            },
+            {
+              "title": "Japanese",
+              "value": "ja"
+            },
+            {
+              "title": "Korean",
+              "value": "ko"
+            },
+            {
+              "title": "French",
+              "value": "fr"
+            },
+            {
+              "title": "German",
+              "value": "de"
+            },
+            {
+              "title": "Spanish (Spain)",
+              "value": "es-ES"
+            },
+            {
+              "title": "Spanish (Mexico)",
+              "value": "es-MX"
+            },
+            {
+              "title": "Portuguese (Portugal)",
+              "value": "pt-PT"
+            },
+            {
+              "title": "Portuguese (Brazil)",
+              "value": "pt-BR"
+            },
+            {
+              "title": "Italian",
+              "value": "it"
+            },
+            {
+              "title": "Russian",
+              "value": "ru"
+            },
+            {
+              "title": "Arabic (Egypt)",
+              "value": "ar-EG"
+            },
+            {
+              "title": "Arabic (Saudi Arabia)",
+              "value": "ar-SA"
+            },
+            {
+              "title": "Arabic (UAE)",
+              "value": "ar-AE"
+            },
+            {
+              "title": "Hindi",
+              "value": "hi"
+            },
+            {
+              "title": "Bengali",
+              "value": "bn"
+            },
+            {
+              "title": "Turkish",
+              "value": "tr"
+            },
+            {
+              "title": "Vietnamese",
+              "value": "vi"
+            },
+            {
+              "title": "Indonesian",
+              "value": "id"
+            }
           ]
         }
       ],
@@ -614,6 +857,7 @@
       "description": "System TTS Provider that allows you to use `say` command on macos",
       "icon": "system.png",
       "commandType": "provider",
+      "provider_category": "tts",
       "preferences": [
         {
           "name": "voice",
@@ -651,6 +895,7 @@
       "description": "Straico TTS Provider that allows you to use [Straico's online text-to-speech](https://straico.com/api) service with ElevenLabs and OpenAI models",
       "icon": "straico.png",
       "commandType": "provider",
+      "provider_category": "tts",
       "preferences": [
         {
           "name": "credentials",
@@ -676,11 +921,23 @@
           "data": [
             {
               "title": "ElevenLabs Multilingual V2",
-              "value": "eleven_multilingual_v2"
+              "value": "eleven_multilingual_v2",
+              "id": "straico-elevenlabs-multilingual-v2",
+              "description": "ElevenLabs Multilingual V2 via Straico — high-quality multilingual TTS.",
+              "is_online": true,
+              "is_enconvo_cloud": false,
+              "is_bring_your_own_key": true,
+              "supports_streaming": true
             },
             {
               "title": "OpenAI TTS-1",
-              "value": "tts-1"
+              "value": "tts-1",
+              "id": "straico-openai-tts-1",
+              "description": "OpenAI TTS-1 via Straico — standard text-to-speech.",
+              "is_online": true,
+              "is_enconvo_cloud": false,
+              "is_bring_your_own_key": true,
+              "supports_streaming": true
             }
           ]
         },
